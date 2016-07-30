@@ -1,0 +1,32 @@
+
+<div class="container-fluid container-fullw bg-white" ct-fullheight data-ct-fullheight-exclusion="header, footer">
+    <div class="row margin-top-10 margin-bottom-10">
+        <div class="col-md-2">
+            <button class="btn btn-primary btn-o btn-wide" ng-click="createNew()">
+                    <i class="ti-plus"></i> Create new class
+                </button>
+        </div>
+        <div class="col-md-10">
+            <h3 class="text-center">Classes by <b>{{user.name.firstname}} {{user.name.lastname}}</b> </h3>
+        </div>
+        
+    </div>
+
+    <div class="row border-top">
+            <div class="col-md-3 no-padding">
+                <class-summary-list></class-summary-list>
+            </div>
+            <div class="col-md-9 no-padding">
+                <div class="col panel panel-transparent no-radius no-padding">
+                    <uib-tabset class="tabbable no-padding">
+                            <uib-tab heading="Details">
+                                <div class-details></div>
+                            </uib-tab>
+                            <uib-tab heading="Schedule">
+                                <div class-schedule></div>
+                            </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+    </div>
+</div>

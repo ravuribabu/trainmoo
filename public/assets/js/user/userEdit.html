@@ -1,0 +1,305 @@
+
+
+<!-- start: USER PROFILE -->
+<div class="container-fluid container-fullw  margin-top-10" ng-controller="userController">
+
+<div class="panel panel-white">
+	<div class="panel-heading border-light">
+		<div class="panel-title text-primary"><strong>{{action}}</strong> User Profile</div>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
+
+				<div id="panel_edit_account" >
+                        <form name="Form" id="form1" novalidate ng-submit="form.submit(Form)" >
+								<fieldset>
+									<legend>
+										Account Info
+									</legend>
+									<div class="row">
+										<div class="col-md-5">
+											<div class="form-group" ng-class="{'has-error':Form.firstname.$dirty && Form.firstname.$invalid, 'has-success':Form.firstname.$valid}">
+												<label class="control-label"> First Name  <span class="symbol required"></label>
+												<input type="text" class="form-control underline" id="firstname" name="firstname" ng-model="formData.name.firstname" required>
+												<span class="error text-small block" ng-if="Form.firstname.$dirty && Form.firstname.$error.required">Firstname is required.</span>
+											</div>
+											<div class="form-group" ng-class="{'has-error':Form.lastname.$dirty && Form.lastname.$invalid, 'has-success':Form.lastname.$valid}">
+												<label class="control-label"> Last Name  <span class="symbol required"></label>
+												<input type="text" class="form-control underline" id="lastname" name="lastname"  ng-model="formData.name.lastname" required>
+												<span class="error text-small block" ng-if="Form.lastname.$dirty && Form.lastname.$error.required">Lastname is required.</span>
+											</div>
+											<div class="form-group" ng-class="{'has-error':Form.phone.$dirty && Form.phone.$invalid, 'has-success':Form.phone.$valid}">
+												<label class="control-label"> Phone  <small class="text-warning">(999) 999-9999</small><span class="symbol required"></label>
+		                                            <span class="input-icon">
+													<input type="text" class="form-control underline" id="phone" name="phone"  placeholder="(999) 999-9999" ui-mask="(999) 999-9999"  ng-model="formData.phone" required> <i class="fa fa-phone"></i> </span>
+									            	<span class="error text-small block" ng-if="Form.phone.$dirty && Form.phone.$error.required">Phone number is required.</span>
+											</div>
+											<div class="form-group" ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
+	                                            <label class="control-label"> Email <span class="symbol required"></span> </label>
+	                                            <input type="email" class="form-control underline" name="email" ng-model="formData.email" required>
+	                                            <span class="error text-small block" ng-if="Form.email.$dirty && Form.email.$error.required">Email is required.</span>
+	                                            <span class="error text-small block" ng-if="Form.email.$error.email">Please, enter a valid email address.</span>
+                                       	    </div>
+                                       	    <div class="form-group" ng-class="{'has-error':Form.userid.$dirty && Form.userid.$invalid, 'has-success':Form.userid.$valid}">
+	                                            <label class="control-label"> Userid <span class="symbol required"></span> </label>
+	                                            <input type="text" class="form-control underline" name="userid" ng-model="formData.userid" required uib-tooltip="See? Now click away..." tooltip-trigger="focus" tooltip-placement="top" >
+	                                            <span class="error text-small block" ng-if="Form.userid.$dirty && Form.userid.$error.required">Email is required.</span>
+	                                            <span class="error text-small block" ng-if="Form.userid.$error.email">Please, enter a valid userid address.</span>
+                                       	    </div>
+											<div class="form-group" ng-class="{'has-error':Form.password.$dirty && Form.password.$invalid, 'has-success':Form.password.$valid}">
+	                                            <label class="control-label"> Password <span class="symbol required"></span> </label>
+	                                            <input type="password" class="form-control underline" name="password" ng-model="formData.password" required />
+	                                            <span class="error text-small block" ng-if="Form.password.$dirty && Form.password.$error.required">Password is required.</span>
+	                                        </div>
+
+	                                        <div class="form-group" ng-class="{'has-error':Form.password2.$dirty && Form.password2.$error.compareTo || Form.password2.$dirty && Form.password2.$invalid, 'has-success':Form.password2.$valid}">
+	                                            <label class="control-label"> Repeat Password <span class="symbol required"></span> </label>
+	                                            <input type="password" class="form-control underline" name="password2" ng-model="formData.password2" compare-to="formData.password" required />
+	                                            <span class="error text-small block" ng-if="Form.password2.$dirty && Form.password2.$error.required">Repeat password is required!</span>
+	                                            <span class="error text-small block" ng-if="Form.password2.$dirty && Form.password2.$error.compareTo">Passwords do not match!</span>
+	                                            <span class="success text-small block" ng-if="Form.password2.$valid">Passwords match!</span>
+	                                        </div>
+
+										</div>
+										<div class="col-md-offset-1 col-md-5">
+											<div class="form-group"  ng-class="{'has-error':Form.gender.$dirty && Form.gender.$invalid, 'has-success':Form.gender.$valid}">
+												<label class="control-label"> Gender  <span class="symbol required"></label>
+												<div class="clip-radio radio-primary">
+													<input type="radio" value="female" name="gender" id="us-female"  ng-model="formData.gender" required>
+													<label for="us-female"> Female </label>
+													<input type="radio" value="male" name="gender" id="us-male"  ng-model="formData.gender" required>
+													<label for="us-male"> Male </label>
+												</div>
+												<span class="error text-small block" ng-if="Form.gender.$dirty && Form.gender.$error.required">Gender is required.</span>
+											</div>
+											<div class="form-group" ng-class="{'has-error':Form.address.$dirty && Form.address.$invalid, 'has-success':Form.address.$valid}">
+	                                            <label class="control-label"> Location <span class="symbol required"></span> </label>
+	                                            <input type="text" class="form-control underline" name="address" ng-model="formData.address" required >
+	                                            <span class="error text-small block" ng-if="Form.address.$dirty && Form.address.$error.required">Location is required.</span>
+	                                            <span class="error text-small block" ng-if="Form.address.$error.email">Please, enter a valid address.</span>
+                                       	    </div>
+											<div class="row" >
+												<div class="col-md-4">
+													<div class="form-group" ng-class="{'has-error':Form.zipcode.$dirty && Form.zipcode.$invalid, 'has-success':Form.zipcode.$valid}">
+														<label class="control-label"> Zip Code  <span class="symbol required"></label>
+														<input class="form-control underline" type="number" name="zipcode" id="zipcode"  ng-model="formData.zipcode" required>
+														<span class="error text-small block" ng-if="Form.zipcode.$dirty && Form.zipcode.$error.required">Zipcode is required.</span>
+													</div>
+												</div>
+												<div class="col-md-8" >
+													<div class="form-group" ng-class="{'has-error':Form.city.$dirty && Form.city.$invalid, 'has-success':Form.city.$valid}">
+														<label class="control-label"> City  <span class="symbol required"></label>
+														<input class="form-control underline tooltips" type="text" data-original-title="We'll display it when you write reviews" data-rel="tooltip"  title="" data-placement="top" name="city" id="city"  ng-model="formData.city" required>
+														<span class="error text-small block" ng-if="Form.city.$dirty && Form.city.$error.required">City is required.</span>
+													</div>
+												</div>
+											</div>
+											
+										
+
+											<div class="form-group">
+	                                            <label>
+	                                                Image Upload
+	                                            </label>
+	                                            <div flow-init>
+	                                                <div class="user-image">
+	                                                    <div class="thumbnail margin-bottom-5">
+	                                                        <img src="assets/images/avatar-1-big.jpg" alt="" ng-if="!$flow.files.length && noImage">
+	                                                        <img ng-src="assets/images/layout-4.jpg" alt="" ng-if="!$flow.files.length && !noImage">
+	                                                        <img flow-img="$flow.files[0]" ng-if="$flow.files.length">
+	                                                    </div>
+	                                                </div>
+	                                                <div class="user-image-buttons-edit" ng-if="$flow.files.length">
+	                                                    <span class="btn btn-primary btn-file">
+						                                    <i class="fa fa-pencil"></i>
+						                                    <input type="file" flow-btn />
+						                                </span>
+	                                                    <span class="btn btn-danger" ng-click="$flow.cancel()"> <i class="fa fa-times"></i></span>
+	                                                </div>
+	                                                <div class="user-image-buttons-edit" ng-if="!$flow.files.length">
+	                                                    <span class="btn btn-primary btn-file">
+						                                    <i class="fa fa-pencil"></i>
+						                                    <input type="file" flow-btn />
+						                                </span>
+	                                                    <span class="btn btn-danger" ng-if="!noImage" ng-click="removeImage()"><i class="fa fa-times"></i> </span>
+	                                                </div>
+	                                            </div>
+	                                        </div>	
+
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset>
+									<legend>
+										Professional Info
+									</legend>
+
+									
+									<div class="row">
+											<div class="col-md-5">
+												<div class="form-group" ng-class="{'has-error':Form.title.$dirty && Form.title.$invalid, 'has-success':Form.title.$valid}">
+													<label class="control-label"> Title <span class="symbol required"></span> </label>
+													<input type="text"  class="form-control underline" placeholder="Profressional Title" class="form-control underline" id="title" name="title"  ng-model="formData.title" required>
+													<span class="error text-small block" ng-if="Form.title.$dirty && Form.title.$error.required">Title is required.</span>
+												</div>
+
+												<div class="form-group" ng-class="{'has-error':Form.experience.$dirty && Form.experience.$invalid, 'has-success':Form.experience.$valid}">
+													<label class="control-label"> Experience <span class="symbol required"></span> </label>
+													<input type="number" class="form-control underline" id="experience" name="experience" placeholder="Experience in years" ng-model="formData.experience" required>
+													<span class="error text-small block" ng-if="Form.experience.$dirty && Form.experience.$error.required">Experience is required.</span>
+												</div>
+
+												<div class="form-group" ng-class="{'has-error':Form.current.$dirty && Form.current.$invalid, 'has-success':Form.current.$valid}">
+													<label class="control-label"> Current <span class="symbol required"></span> </label>
+													<input type="text" class="form-control underline" id="current" name="current" placeholder="What is your current job?" ng-model="formData.current" required>
+													<span class="error text-small block" ng-if="Form.current.$dirty && Form.current.$error.required">Current position is required.</span>
+												</div>
+											</div>
+											<div class="col-md-offset-1 col-md-5">
+
+												<div class="form-group"  ng-class="{'has-error':Form.sepcialzations.$dirty && Form.sepcialzations.$invalid, 'has-success':Form.sepcialzations.$valid}">
+													<label for="sepcialzations" class="control-label">Specializations<span class="symbol required"></span> </label>
+													<select id="sepcialzations" ui-select2 class="form-control underline" multiple name="sepcialzations" ng-model="formData.specializations" required>
+															<option>BodyBuilding</option>
+															<option>Weight Loss</option>
+															<option >Science</option>
+															<option>Piano</option>
+															<option>Photography</option>
+															<option>CrossFit</option>
+															<option>Mountain Climbing</option>
+															<option>Cooking</option>
+															<option>NodeJS</option>
+													</select>
+													<span class="error text-small block" ng-if="Form.specializations.$dirty && Form.specializations.$error.required">Please select specializations.</span>
+												</div>
+														
+												<div class="form-group" ng-class="{'has-error':Form.certifications.$dirty && Form.certifications.$invalid, 'has-success':Form.certifications.$valid}">
+													<label for="certifications" class="control-label">Certifications<span class="symbol required"></span> </label>
+													<select id="certifications" ui-select2  class="form-control underline" multiple name="certifications"  ng-model="formData.certifications" required>
+															<option>ACS</option>
+															<option>IFBB Pro</option>
+															<option>MBBS</option>
+															<option>Physio</option>
+															<option>Photography</option>
+															<option>CrossFit Level1</option>
+															<option>Mountain Climbing</option>
+															<option>SCJCP</option>
+															<option>AWS Associate</option>
+													</select>
+													<span class="error text-small block" ng-if="Form.certifications.$dirty && Form.certifications.$error.required">Certifications is required.</span>
+												</div>
+
+												<div class="form-group" ng-class="{'has-error':Form.training.$dirty && Form.training.$invalid, 'has-success':Form.training.$valid}">
+													<label for="training" class="control-label">Training<span class="symbol required"></span> </label>
+													<select id="training" ui-select2 class="form-control underline" multiple  ng-model="formData.trainingStyle" name="training"required>
+															<option>Online</option>
+															<option>Personal</option>
+															<option>In Class</option>
+															<option>At Home</option>
+															<option>One on One</option>
+															<option>Group</option>
+															<option>Corporate</option>
+													</select>
+													<span class="error text-small block" ng-if="Form.training.$dirty && Form.training.$error.required">Training is required.</span>
+												</div>
+											</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group" ng-class="{'has-error':Form.summary.$dirty && Form.summary.$invalid, 'has-success':Form.summary.$valid}">
+												<label class="control-label"> Summary <span class="symbol required"></span> </label>
+	                                       	    <textarea class="form-control autosize area-animated msd-elastic: \n;" ng-model="formData.summary" placeholder="Introduce your self" id="summary" name="summary" required></textarea>
+	                                       	    <span class="error text-small block" ng-if="Form.summary.$dirty && Form.summary.$error.required">Summary is required.</span>
+	                                    	</div>
+                                    	</div>
+									</div>
+								</fieldset>
+
+								<fieldset>
+									<legend>
+										Additional Info
+									</legend>
+									<div class="row">
+										<div class="col-md-5">
+											<div class="form-group">
+												<label class="control-label"> Twitter </label>
+												<span class="input-icon">
+													<input class="form-control underline" type="text" ng-model="formData.social.twitter">
+													<i class="fa fa-twitter"></i> </span>
+											</div>
+											<div class="form-group">
+												<label class="control-label"> Facebook </label>
+												<span class="input-icon">
+													<input class="form-control underline" type="text" ng-model="formData.social.facebook">
+													<i class="fa fa-facebook"></i> </span>
+											</div>
+											<div class="form-group">
+												<label class="control-label"> Youtube </label>
+												<span class="input-icon">
+													<input class="form-control underline" type="text" ng-model="formData.social.youtube">
+													<i class="fa fa-youtube"></i> </span>
+											</div>
+										</div>
+										<div class="col-md-offset-1 col-md-5">
+											<div class="form-group">
+												<label class="control-label"> Instragram </label>
+												<span class="input-icon">
+													<input class="form-control underline" type="text" ng-model="formData.social.github">
+													<i class="fa fa-instagram"></i> </span>
+											</div>
+											<div class="form-group">
+												<label class="control-label"> Linkedin </label>
+												<span class="input-icon">
+													<input class="form-control underline" type="text" ng-model="formData.social.linkedin">
+													<i class="fa fa-linkedin"></i> </span>
+											</div>
+											<div class="form-group">
+												<label class="control-label"> Skype </label>
+												<span class="input-icon">
+													<input class="form-control underline" type="text" ng-model="formData.social.skype">
+													<i class="fa fa-skype"></i> </span>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+								<div class="row">
+									<div class="col-md-12">
+										<div>
+											Required Fields
+											<hr>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<p>
+											By clicking UPDATE, you are agreeing to the Policy and Terms &amp; Conditions.
+										</p>
+									</div>
+									<div class="col-md-4">
+										<button class="btn btn-primary pull-right" type="submit">
+											Update <i class="fa fa-arrow-circle-right"></i>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>
+<!-- end: USER PROFILE -->	
+
+<!--
+	<script type="text/javascript">
+	    $(".select2-multiple").select2({
+	    	tags: true
+	    });
+	</script>
+
+-->

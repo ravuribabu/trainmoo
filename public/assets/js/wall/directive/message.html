@@ -1,0 +1,83 @@
+<div class="media">
+	<a href="#" class="pull-left">
+		<img alt="image" class="img-circle" src="assets/images/avatar-2.jpg">
+	</a>
+	<div class="media-body ">
+		<strong>{{msg.author.name}}</strong> posted on <strong>{{msg.class.name}}</strong>.
+		<br>
+		<small class="text-light">{{msg.posted | postTime}}</small>						
+	</div>
+	<a href="#" ng-click="open(post.pictureid)">
+		<div flow-init flow-name="obj.flow" ng-if="post.picture" class="margin-top-10">
+	        <div class="user-image">
+	            <div class="thumbnail">
+	                <img ng-src="/api/img/download/{{msg.pictureid}}"></img>
+	            </div>
+	        </div>
+	    </div>
+    </a>
+    <br/>
+    <p class="margin-top-10 margin-bottom-10" ng-show="msg.type==='comment'">
+			{{msg.text}}
+	</p>
+	<p class="margin-top-10 margin-bottom-10 " ng-show="msg.type==='blog'">
+		<div class="media">
+			<a href="/app/blog/read/{{msg._id}}" class="pull-left"> <img ng-src="{{getFirstImageSrc(msg.text)}}" alt="" class="media-object" style="width:150px;"> </a>
+            <div class="media-body">
+                <h4 class="media-heading">{{msg.title}}</h4>
+                {{msg.text | stripHtml}}
+            </div>
+		</div>
+			
+	</p>
+
+	<!-- <p ng-bind-html="msg.text" ng-show="msg.type==='blog'">
+	</p> -->
+
+</div>
+
+<div class="margin-top-10">
+	<slick settings="slickConfig" class="slider no-padding" ng-show="msg.files && msg.files.length > 0">
+			<div ng-repeat="picture in msg.files" class="padding-10">
+		            <div class="user-image no-padding">
+		            		<a href="#" ng-click="showCarousal(msg, picture)">
+		                        <div class="thumbnail">
+		                            <img ng-src="/api/img/download/thumbnail/{{picture.fileid }}_thumb.{{picture.type==='pdf'?'png':picture.type}}">
+		                            <div class="caption">
+		                                {{picture.fileName}}
+		                        	</div>
+	                        	</div>
+	                        </a>
+	                </div>
+	                
+		    </div>
+	</slick>
+</div>
+
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-body">
+
+	    <div class="wrapper" ng-show="pdfViewer">
+		  <strong>{{file.fileName}}</strong>
+		  <ng-pdf template-url="assets/js/shared/partials/pdfviewer.html" canvasid="pdf" scale="page-fit" page=1></ng-pdf>
+		</div>
+
+
+
+    	<slick settings="slickConfig" class="slider" ng-show="!pdfViewer && msg.files && msg.files.length > 0">
+			<div ng-repeat="picture in msg.files" class="padding-10">
+		                        <div class="thumbnail">
+		                            <img ng-src="/api/img/download/thumbnail/{{picture.fileid }}">
+		                            <div class="caption">
+		                                {{picture.fileName}}
+		                        	</div>
+	                        	</div>
+	                
+		    </div>
+		</slick>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</script>

@@ -1,0 +1,19 @@
+<div class="container-fluid container-fullw">
+	<div class="row padding-top-10">	
+		<div class="xs-col-5">
+		 	<post></post>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="panel panel-white padding-20" ng-repeat="msg in posts">
+			<div class="panel-body">
+				<message msg="msg"></message>
+			</div>
+			<div class="panel-footer">
+				<reply msg="msg"></reply>
+			</div>
+		</div>
+	</div>
+
+</div>

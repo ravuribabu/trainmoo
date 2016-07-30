@@ -1,0 +1,78 @@
+
+<div class="panel panel-white no-radius no-padding no-margin">
+    <div class="panel-heading border-light no-padding">
+                <div class="col-xs-9">
+                    <form>
+                        <span class="input-icon">
+                            <input type="text" placeholder="Search classes..." class="form-control underline" ng-model="searchText">
+                            <i class="ti-search"></i> 
+                        </span>
+                    </form>
+                </div>    
+                <div class="col-xs-3">
+                    <div class="pull-right">
+                        <div class="btn-group" uib-dropdown is-open="status.isopen">
+                            <button type="button" class="btn btn-primary dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+                                Filter <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#">
+                                        In Progress
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Closed
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Not Started
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Abandoned
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">
+                                        All
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    
+    <div class="panel-body no-padding" >
+                <div id="list-group">
+                        <a href="#" class="list-group-item" ng-repeat="clazz in classes | filter: searchText" ng-click="selectClazz(clazz.classid)" ng-class="{'active' : clazz.classid == selected}">
+                            <div ng-show="!clazz._id" class="pull-right"><span class="label label-warning">New</span></div>
+
+                            <div class="padding-20" >
+                                <div class="block">
+                                    <strong>{{clazz.title}}</strong>
+                                </div>
+                                <span class="text-small"  style="line-height:175%">{{clazz.schedule}}</span>
+                                <p  style="line-height:175%"> By <span class="text-azure">{{clazz.trainers()}}</span><br>
+                                <div class="col-xs-12 no-padding">
+                                    <div class="col-xs-6 no-padding">
+                                        <uib-progressbar type="info" max="clazz.capacity" value="clazz.registered">
+                                            <span>{{clazz.registered}} / {{clazz.capacity}}</span>
+                                        </uib-progressbar>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="block">
+                                            <span class="label label-success">{{clazz.status}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                </div>   
+    </div>
+</div>
