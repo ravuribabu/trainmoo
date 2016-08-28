@@ -1,25 +1,34 @@
-define(['angular', '../class', '../classFactory'], 
+define(['angular', '../class', '../../core/utils', '../classFactory'], 
 
-	function(angular, classModule){
+	function(angular, classModule, utils){
 
 		classModule.directive('classDetails', function(){
 			return {
 				restict : 'EA',
-				scope: {
-					class : '=',
-					userid : '@'
-				},
+				
 				templateUrl: 'assets/js/class/directive/classDetails.html',
 				controller: 'classDetailsController'
 			};
 		});
 
 		
-		classModule.controller('classDetailsController', ["$scope", "$rootScope", "classFactory", "SweetAlert", "$window", "$state", function($scope, $rootScope, classFactory, SweetAlert, $window, $state){
-			
+		classModule.controller('classDetailsController', 
+			["$scope", "$rootScope", "classFactory", "SweetAlert", "$window", "$state", "$stateParams", "alertify" ,
+				function($scope, $rootScope, classFactory, SweetAlert, $window, $state, $stateParams, alertify){
+
+			$scope.disableForm = true;
+			$scope.userid = $stateParams.userid;
+			$scope.programid = $stateParams.programid;
+
+			$scope.teachers = [{
+					id: $scope.userid,
+					name: 'Rambabu Ravuri'
+				}]
+
 			$rootScope.$on('CLAZZ_SELECT', function(e, clazz) {
+				$scope.disableForm = false;
 				$scope.formData = clazz ;
-				
+
 				if (clazz._id) {
 					classFactory
 							.getClass(clazz._id)
@@ -38,61 +47,49 @@ define(['angular', '../class', '../classFactory'],
 
 									});
 				} 
+
+				$scope.disableForm = false;
 		
 			});
 
-
-			$scope.form = {
-
-		        submit: function (form) {
-
-		            var firstError = null;
-		            
-		            if (form.$invalid) {
-
-		                var field = null, firstError = null;
-		                for (field in form) {
-		                    if (field[0] != '$') {
-		                        if (firstError === null && !form[field].$valid) {
-		                            firstError = form[field].$name;
-		                        }
-
-		                        if (form[field].$pristine) {
-		                            form[field].$dirty = true;
-		                        }
-		                    }
-		                }
-
-		                angular.element('.ng-invalid[name=' + firstError + ']').focus();
-		                SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
-		                return;
-
-		            } else {
-		                if ($scope.formData._id) {
-							classFactory.updateClass($scope.formData._id, $scope.formData)
-														.success(function(){
-															//SweetAlert.swal("Class is updated successfully");
+			$scope.form = new utils.AppForm(angular, function(form){
+				if ($scope.formData._id) {
+							classFactory.updateClass($scope.formData)
+														.success(function(data){
+															alertify
+															    .reset()
+															    .maxLogItems(2)
+															    .closeLogOnClick(true)
+															    .delay(2000)
+															    .logPosition("bottom left")
+															    .success("Class updated successfully");
 															$state.reload();
-															//$window.location.href = '/';
+
 														})
 														.error(function(data){
 															console.log(data);
 														});
 		                } else {
-			                classFactory.createClass($scope.userid, $scope.formData);
+			                classFactory.createClass($scope.formData)
+			                			.success(function(){
+															alertify
+															    .reset()
+															    .maxLogItems(2)
+															    .closeLogOnClick(true)
+															    .delay(2000)
+															    .logPosition("bottom left")
+															    .success("Class created successfully");
+															$state.reload();
+
+														})
+														.error(function(data){
+															console.log(data);
+														});
 						}
-		            }
+			}, function(){
 
-		        },
-		        reset: function (form) {
-		            $scope.myModel = angular.copy($scope.master);
-		            form.$setPristine(true);
-
-		        }
-		    };
-
-
-
+			});
+	
 
 		}]);
 

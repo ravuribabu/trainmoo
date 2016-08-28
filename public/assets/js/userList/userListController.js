@@ -26,7 +26,7 @@ define(['./userList', 'lodash'], function(userList) {
 						_.forEach(data, function(element, index) {
 							var user = {};
 							user.id = element._id;
-							user.name = element.name.firstname + " " + element.name.lastname ;
+							user.name = element.credential.name.firstname + " " + element.credential.name.lastname ;
 							user.title = element.title;
 							user.certifications = _.join(element.certifications, ', ');
 							user.specializations = _.join(element.specializations, ', ')
@@ -35,6 +35,7 @@ define(['./userList', 'lodash'], function(userList) {
 							user.costPerSession = '2000';
 							user.feedbackPositive = '90';
 							user.activeSessions = '1';
+							user.picture = element.picture;
 
 							$scope.userList.push(user);
 						});

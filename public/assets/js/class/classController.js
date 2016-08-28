@@ -2,11 +2,15 @@ define(['angular', './class'], function(angular, classModule) {
 
 'use strict';
 		classModule.controller('classController', 
-			function($scope, $rootScope, $stateParams, userFactory){
+			function($scope, $state, $rootScope, $stateParams, $uibModal, userFactory, $aside){
 
 				init();
 				function init() {
 					
+					$scope.programid = $stateParams.programid;
+					$scope.classType = ($scope.programid?'Class':'Program');
+					$scope.title = ($scope.programid?'Classes':'Programs');
+
 					var user = {};
 					userFactory
 						.getUser($stateParams.userid)
@@ -22,7 +26,28 @@ define(['angular', './class'], function(angular, classModule) {
 					};
 				}
 
+				$scope.add = function(role) {
+					
+					$scope.classUser = {
+						email: $scope.user.credential.local.email,
+						firstname: $scope.user.credential.name.firstname,
+						lastname: $scope.user.credential.name.lastname,
+						role: role
+					}
 
+			        var modalInstance = $aside.open({
+			            templateUrl: 'assets/js/class/directive/classUserAdd.html',
+			            placement: 'right',
+			            size: 'md',
+			            backdrop: true,
+			            controller: 'classUserController',
+			            resolve: {
+			            	'user': $scope.classUser
+			            }
+			        });
+				
+				};
+				
 			});
 
 

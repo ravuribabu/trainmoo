@@ -1,0 +1,13 @@
+{
+  "name": "easing",
+  "homepage": "https://github.com/amazingSurge/easing.css",
+  "_release": "4070435103",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "40704351033041792bc5deef6e0848af999da2b9"
+  },
+  "_source": "git@github.com:amazingSurge/easing.css.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:amazingSurge/easing.css.git"
+}

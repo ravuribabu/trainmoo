@@ -25,6 +25,9 @@ define(['angular', './post'], function(angular, post) {
 			getReplies: function(parent_id) {
 				return $http.get('api/replies/' + parent_id );
 			},
+			likePost: function(post_id, user_id){
+				return $http.put('api/post/' + post_id + '/like/' + user_id);
+			}
 			// getWall: function(user_id) {
 			// 	return $http.get('api/wall/' + user_id )
 			// },

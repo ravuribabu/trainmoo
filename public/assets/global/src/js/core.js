@@ -153,6 +153,7 @@
   // Colors
   // ======
   $.colors = function(name, level) {
+
     if (name === 'primary') {
       name = $.configs.get('site', 'primaryColor');
       if (!name) {

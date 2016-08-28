@@ -14,8 +14,6 @@ define(['angular'], function(angular){
 
 	core.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
-		$urlRouterProvider.otherwise("/app/users");
-
 		$locationProvider.html5Mode(true);
 	});
 

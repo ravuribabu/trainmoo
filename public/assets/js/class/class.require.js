@@ -5,7 +5,9 @@ define([
 	'./directive/classSummaryList',
 	'./directive/classDetails',
 	'./directive/classSchedule',
-	'./directive/classScheduleController'
+	'./directive/classScheduleController',
+	'./directive/classesCard',
+	'./directive/classUserController',
 	], function(){
 	'use strict';
 });

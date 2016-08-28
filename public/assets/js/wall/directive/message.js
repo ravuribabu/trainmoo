@@ -11,7 +11,50 @@ define(['angular', '../wall', 'moment'], function(angular, wall, moment) {
 		};
 	});
 
-	
+	wall.directive('comment', function(){
+		return {
+				restict : 'EA',
+				scope: {
+					msg : '=',
+				},
+				templateUrl: 'assets/js/wall/directive/comment.html',
+				controller: 'messageController'
+		};
+	});
+
+	wall.directive('notification', function(){
+		return {
+				restict : 'EA',
+				scope: {
+					msg : '=',
+				},
+				templateUrl: 'assets/js/wall/directive/notification.html',
+				controller: 'messageController'
+		};
+	});
+
+	wall.directive('assignment', function(){
+		return {
+				restict : 'EA',
+				scope: {
+					msg : '=',
+				},
+				templateUrl: 'assets/js/wall/directive/assignment.html',
+				controller: 'messageController'
+		};
+	});
+
+	wall.directive('blog', function(){
+		return {
+				restict : 'EA',
+				scope: {
+					msg : '=',
+				},
+				templateUrl: 'assets/js/wall/directive/blog.html',
+				controller: 'messageController'
+		};
+	});
+
 	wall.filter('postTime', function(){
 		return function(d) {
 			var output;
@@ -30,15 +73,46 @@ define(['angular', '../wall', 'moment'], function(angular, wall, moment) {
 				};
 	} );
 
+	wall.filter('listToString', function(){
+		return function listToString(list){
+			return _.join(list, ', ');
+		}
+	});
 
+	wall.controller('messageController', function($scope, $uibModal, postFactory, $stateParams){
 
-	wall.controller('messageController', function($scope, $uibModal, postFactory){
+		$scope.userid = $stateParams.userid;
 
 		init()
 		function init(){
 			
+				postFactory.getReplies($scope.msg._id)
+						.success(function(data){
+							$scope.replies = data;
+						})
+						.error(function(err){
+							console.log(err);
+						});
+
 		}
 
+		$scope.like = function() {
+			var alreadyLiked = _.find($scope.msg.likes, function(l) { return l.id === $scope.userid ;});
+
+			if (!alreadyLiked) {
+				$scope.msg.likes.push( {id: $scope.userid, name:'Rambabu Ravuri' } );
+			}
+
+			postFactory.likePost($scope.msg._id, $scope.userid)
+					   .success(function(data){
+					   	console.log(data);
+					   })
+					   .error(function(err){
+					   	console.log(err);
+					   });
+		}
+
+		$scope.showReplies = false;
 
 		$scope.getFirstImageSrc = function(html){
 			var div = document.createElement('div');
@@ -46,45 +120,45 @@ define(['angular', '../wall', 'moment'], function(angular, wall, moment) {
 			var firstImage = div.getElementsByTagName('img')[0]
 			var imgSrc = firstImage ? firstImage.src : "";
 			return imgSrc;
-			//var rawImgSrc = firstImage ? firstImage.getAttribute("src") : "";
 		}
 
 
 	    $scope.slickConfig= {
-	      method: {},
 
-       		 dots: true,
-	      infinite: false,
-        speed: 300,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        arrows: true,
-	      responsive: [
-	        {
-	          breakpoint: 1024,
-	          settings: {
-	            slidesToShow: 3,
-	            slidesToScroll: 3,
-	            infinite: true,
-	            dots: true
-	          }
-	        },
-	        {
-	          breakpoint: 600,
-	          settings: {
-	            slidesToShow: 2,
-	            slidesToScroll: 2
-	          }
-	        },
-	        {
-	          breakpoint: 480,
-	          settings: {
-	            slidesToShow: 1,
-	            slidesToScroll: 1
-	          }
-	        }
-	      ]
-	    };
+				method: {},
+
+				dots: true,
+				infinite: false,
+				speed: 300,
+				slidesToShow: 4,
+				slidesToScroll: 1,
+				arrows: true,
+				responsive: [
+				{
+				  breakpoint: 1024,
+				  settings: {
+				    slidesToShow: 3,
+				    slidesToScroll: 3,
+				    infinite: true,
+				    dots: true
+				  }
+				},
+				{
+				  breakpoint: 600,
+				  settings: {
+				    slidesToShow: 2,
+				    slidesToScroll: 2
+				  }
+				},
+				{
+				  breakpoint: 480,
+				  settings: {
+				    slidesToShow: 1,
+				    slidesToScroll: 1
+				  }
+				}
+				]
+		    };
 
 
 

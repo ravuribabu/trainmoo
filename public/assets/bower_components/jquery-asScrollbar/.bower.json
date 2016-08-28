@@ -1,0 +1,25 @@
+{
+  "name": "jquery-asScrollbar",
+  "main": "dist/jquery-asScrollbar.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=2.1.1",
+    "jquery-wheel": "git@github.com:brandonaaron/jquery-mousewheel.git"
+  },
+  "homepage": "https://github.com/amazingSurge/jquery-asScrollbar",
+  "_release": "1ca76e7392",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1ca76e7392489225695b8df1827d059f8400f726"
+  },
+  "_source": "git@github.com:amazingSurge/jquery-asScrollbar.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:amazingSurge/jquery-asScrollbar.git"
+}

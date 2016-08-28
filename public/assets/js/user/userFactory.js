@@ -2,8 +2,11 @@ define(['./user'], function(user){
 
 	user.factory('userFactory', function($http){
 		return {
-			getUser: function(id){
-				return $http.get('api/users/' + id);
+			getUser: function(){
+				return $http.get('api/user');
+			},
+			getUserCredential: function(credentialid){
+				return $http.get('api/credential/' + credentialid);
 			},
 			post: function(data){
 				return $http.post('api/users', data);

@@ -64,8 +64,8 @@ body {
   direction: ltr;
   overflow-x: hidden;
   height: 100%;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
   padding: 0;
   margin: 0;
   background: #f7f7f8;
@@ -111,7 +111,7 @@ h1, h2 {
 }
 
 h3, h4, h5 {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Roboto,Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5 {
@@ -961,7 +961,7 @@ span[role="slider"] {
 }
 .navbar .navbar-right > li > a {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0;
   line-height: 60px;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
@@ -5788,7 +5788,7 @@ hr.white-line {
 .dropdown-menu {
   border: none;
   border-radius: 3px;
-  font-size: 12px;
+  font-size: 14px;
   padding: 0;
   z-index: 1000;
   -moz-animation-duration: 0.5s;

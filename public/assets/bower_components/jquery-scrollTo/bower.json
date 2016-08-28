@@ -1,0 +1,16 @@
+{
+  "name": "jquery-scrollTo",
+  "version": "0.1.1",
+  "main": "dist/jquery-scrollTo.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.11.0",
+    "easing": "git@github.com:amazingSurge/easing.css.git"
+  }
+}

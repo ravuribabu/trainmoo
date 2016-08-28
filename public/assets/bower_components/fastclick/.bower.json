@@ -1,5 +1,6 @@
 {
   "name": "fastclick",
+  "version": "0.6.11",
   "main": "lib/fastclick.js",
   "ignore": [
     "**/.*",
@@ -10,14 +11,13 @@
     "examples"
   ],
   "homepage": "https://github.com/ftlabs/fastclick",
-  "version": "1.0.6",
-  "_release": "1.0.6",
+  "_release": "0.6.11",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.6",
-    "commit": "2ac7258407619398005ca720596f0d36ce66a6c8"
+    "tag": "v0.6.11",
+    "commit": "57d35f73ca54e31ee37161e32f6ac11786f520d2"
   },
-  "_source": "git://github.com/ftlabs/fastclick.git",
-  "_target": "~1.0.6",
+  "_source": "https://github.com/ftlabs/fastclick.git",
+  "_target": "v0.6.11",
   "_originalSource": "fastclick"
 }

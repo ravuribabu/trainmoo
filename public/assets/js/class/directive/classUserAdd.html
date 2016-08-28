@@ -1,0 +1,57 @@
+  <div class="modal-body padding-top-80">
+      <div class="form-group">
+          <label>
+              Program
+          </label>
+          <input type="text"  class="form-control" ng-model="user.program">
+      </div>
+
+      <div class="form-group">
+          <label>
+              Class
+          </label>
+          <input type="text"  class="form-control" ng-model="user.class">
+      </div>
+
+      <div class="form-group">
+          <label>
+              Email
+          </label>
+          <input type="text"  class="form-control" ng-model="user.email">
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="form-group">
+              <label>
+                  First Name
+              </label>
+              <input type="text"  class="form-control" ng-model="user.firstname">
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="form-group">
+              <label>
+                  Last Name
+              </label>
+              <input type="text" class="form-control" ng-model="user.lastname">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group form-material">
+        <label class="pull-left">Add as &nbsp;</label>
+        <div class="radio-custom radio-success inline small" ng-repeat="userType in ['teacher', 'admin', 'student']" >
+          <input type="radio" ng-model="user.role" ng-value="userType" id="{{userType}}" checked="false" />
+          <label for="{{userType}}">{{userType}}</label>
+        </div>
+      </div>
+    
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary btn-outline btn-round" ng-click="ok()">
+          Ok
+      </button>
+      <button class="btn btn-default btn-outline btn-round" ng-click="cancel()">
+          Cancel
+      </button>
+  </div>

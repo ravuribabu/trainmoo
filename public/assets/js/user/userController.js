@@ -1,4 +1,4 @@
-define(['./user', './userFactory','../core/core'], function(user, core) {
+define(['./user', '../core/utils'], function(user, utils) {
 
 	'use strict';
 
@@ -11,6 +11,7 @@ define(['./user', './userFactory','../core/core'], function(user, core) {
 		    };
 		    $scope.newUser = true;
 
+			$scope.userTypes = ['student', 'teacher', 'parent', 'admin'];
 			$scope.select2Options = {
 			    multiple: true, 
 			    minimumInputLength: 1,
@@ -23,41 +24,43 @@ define(['./user', './userFactory','../core/core'], function(user, core) {
 			  }
 
 			$scope.formData = {};
+			$scope.obj = {};
 			$scope.searchString = "";
 
 			$scope.master = $scope.myModel;
-		    $scope.form = {
+			$scope.fileSuccess = function($file, $message, $flow ) {
+				//$flow.cancel();
+			}
 
-		        submit: function (form) {
-		        	console.log($scope.formData);
-		            var firstError = null;
-		            if (form.$invalid) {
+			$scope.fileError = function($file, $message, $flow ) {
+				SweetAlert.swal($message);
+			}
 
-		                var field = null, firstError = null;
-		                for (field in form) {
-		                    if (field[0] != '$') {
-		                        if (firstError === null && !form[field].$valid) {
-		                            firstError = form[field].$name;
-		                        }
+			$scope.deleteAvatar = function(){
+				$scope.formData.picture = null;
+			}
 
-		                        if (form[field].$pristine) {
-		                            form[field].$dirty = true;
-		                        }
-		                    }
-		                }
+			$scope.form = new utils.AppForm(angular, function(form){
 
-		                angular.element('.ng-invalid[name=' + firstError + ']').focus();
-		                SweetAlert.swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
-		                return;
 
-		            } else {
-		                if ($scope.formData._id) {
+				if ($scope.obj.flowImages && $scope.obj.flowImages.files.length > 0) {
+					var fileImg = $scope.obj.flowImages.files[0];
+					var file = {
+						fileid : fileImg.uniqueIdentifier,
+						fileName: fileImg.name,
+						size: fileImg.size,
+						type: fileImg.name.split('.').pop().toLowerCase()
+					}
+
+					$scope.formData.picture = file;
+					$scope.obj.flowImages.upload();
+				};
+
+
+				if ($scope.formData._id) {
 							userFactory.put($scope.formData, $scope.formData._id)
 														.success(function(){
-															$window.location.href = '/';
-
-															//SweetAlert.swal("Congratulations!", "User is sucessfully registered with Trainmoo!", "success");
-															//$scope.formData = {};
+															$state.go('app.wall' , {userid: $scope.formData._id} );
 														})
 														.error(function(data){
 															var errors = "\n";
@@ -70,11 +73,8 @@ define(['./user', './userFactory','../core/core'], function(user, core) {
 														});
 		                } else {
 			                userFactory.post($scope.formData)
-								.success(function(){
-									$window.location.href = '/';
-
-									//SweetAlert.swal("Congratulations!", "User is sucessfully registered with Trainmoo!", "success");
-									//$scope.formData = {};
+								.success(function(userid){
+									$state.go('app.wall' , { userid: userid } );
 								})
 								.error(function(data){
 									var errors = "\n";
@@ -86,28 +86,37 @@ define(['./user', './userFactory','../core/core'], function(user, core) {
 									SweetAlert.swal("The form cannot be submitted because it contains validation errors!", data.message + errors, "error");
 								});
 						}
-		            }
-
-		        },
-		        reset: function (form) {
-
-		            $scope.myModel = angular.copy($scope.master);
-		            form.$setPristine(true);
-
-		        }
-		    };
+			}, function(){
+				SweetAlert.swal('Incomplete', 'User profile incomplete', 'error');
+			});
 
 			init();
 			function init() {
-				if ($stateParams.id) {
+
+				if ($stateParams.userid) {
 					$scope.newUser = false;
 					$scope.action = "Edit";
-					console.log("Load User: " + $stateParams.id);
-					getUser($stateParams.id);
+					console.log("Load User: " + $stateParams.userid);
+					getUser($stateParams.userid);
 				} else {
+					if (!$stateParams.credentialid){
+						SweetAlert.swal('System error: missing credential information.');
+					}
+					$scope.formData.credential = $stateParams.credentialid;
+					getUserCredential($stateParams.credentialid);
 					$scope.action = "Create";
 				}
 			    $scope.noImage = false;
+			}
+
+			function getUserCredential(credentialid){
+				userFactory.getUserCredential(credentialid)
+							.success(function(credential){
+								$scope.formData.credential = credential;
+							})
+							.error(function(err){
+								SweetAlert.swal('Failed to load credential information', err, 'error');
+							})
 			}
 
 			function getUser(id) {
@@ -116,9 +125,14 @@ define(['./user', './userFactory','../core/core'], function(user, core) {
 					.success(function(data){
 						$scope.formData = data;
 						$scope.formData.password2 = data.password;
-						console.log(data);
+						$scope.formData.nameDisplay = $scope.formData.credential.name.firstname + " " + $scope.formData.credential.name.lastname ;
+						$scope.formData.certificationsDisplay = _.join($scope.formData.certifications, ', ');
+						$scope.formData.specializationsDisplay = _.join($scope.formData.specializations, ', ');
+						$scope.formData.trainingStyleDisplay = _.join($scope.formData.trainingStyle, ', ');
 					})
-					.error(function(err){console.log(err);});
+					.error(function(err){
+						console.log(err);
+					});
 			}
 	    });
 });

@@ -1,7 +1,8 @@
 define([
 	'./userConfig',
 	'./userController',
-	'./userFactory'
+	'./userFactory',
+	'./directive/userCard'
 	], function(){
 	'use strict';
 });

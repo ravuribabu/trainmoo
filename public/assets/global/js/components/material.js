@@ -5,41 +5,44 @@
  */
 $.components.register("material", {
   init: function(context) {
-    $('.form-material', context).each(function() {
-      var $this = $(this);
+      setTimeout( function() {
+        $('.form-material', context).each(function() {
+              var $this = $(this);
 
-      if ($this.data('material') === true) {
-        return;
-      }
+              if ($this.data('material') === true) {
+                return;
+              }
 
-      var $control = $this.find('.form-control');
+              var $control = $this.find('.form-control');
 
-      // Add hint label if required
-      if ($control.attr("data-hint")) {
-        $control.after("<div class=hint>" + $control.attr("data-hint") + "</div>");
-      }
+              // Add hint label if required
+              if ($control.attr("data-hint")) {
+                $control.after("<div class=hint>" + $control.attr("data-hint") + "</div>");
+              }
 
-      if ($this.hasClass("floating")) {
-        // Add floating label if required
-        if ($control.hasClass("floating-label")) {
-          var placeholder = $control.attr("placeholder");
-          $control.attr("placeholder", null).removeClass("floating-label");
-          $control.after("<div class=floating-label>" + placeholder + "</div>");
-        }
+              if ($this.hasClass("floating")) {
+                // Add floating label if required
+                if ($control.hasClass("floating-label")) {
+                  var placeholder = $control.attr("placeholder");
+                  $control.attr("placeholder", null).removeClass("floating-label");
+                  $control.after("<div class=floating-label>" + placeholder + "</div>");
+                }
 
-        // Set as empty if is empty
-        if ($control.val() === null || $control.val() == "undefined" || $control.val() === "") {
-          $control.addClass("empty");
-        }
-      }
+                // Set as empty if is empty
+                if ($control.val() === null || $control.val() == "undefined" || $control.val() === "") {
+                  $control.addClass("empty");
+                }
+              }
 
-      // Support for file input
-      if ($control.next().is("[type=file]")) {
-        $this.addClass('form-material-file');
-      }
+              // Support for file input
+              if ($control.next().is("[type=file]")) {
+                $this.addClass('form-material-file');
+              }
 
-      $this.data('material', true);
-    });
+              $this.data('material', true);
+            }) }, 1000);
+
+
   },
   api: function() {
     function _isChar(e) {

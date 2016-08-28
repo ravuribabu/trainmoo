@@ -1,0 +1,38 @@
+{
+  "name": "easing.css",
+  "title": "easing.css",
+  "description": "easing.css is a easing library written in Less which uses only HTML/CSS to create simple easing. ",
+  "version": "0.1.0",
+  "homepage": "https://github.com/amazingSurge/easing.css",
+  "author": {
+    "name": "amazingSurge",
+    "email": "amazingSurge@yahoo.com",
+    "url": "amazingSurge.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:amazingSurge/easing.css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amazingSurge/easing.css/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "https://github.com/amazingSurge/easing.css/blob/master/LICENSE-GPL"
+    }
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-clean": "*",
+    "grunt": "*",
+    "grunt-jsbeautifier": "*",
+    "grunt-recess": "*",
+    "grunt-contrib-less": "*"
+  }
+}

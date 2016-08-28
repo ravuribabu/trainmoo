@@ -1,47 +1,13 @@
-<div class="media">
-	<a href="#" class="pull-left">
-		<img alt="image" class="img-circle" src="assets/images/avatar-2.jpg">
-	</a>
-	<div class="media-body ">
-		<strong>{{msg.author.name}}</strong> posted on <strong>{{msg.class.name}}</strong>.
-		<br>
-		<small class="text-light">{{msg.posted | postTime}}</small>						
-	</div>
-	<a href="#" ng-click="open(post.pictureid)">
-		<div flow-init flow-name="obj.flow" ng-if="post.picture" class="margin-top-10">
-	        <div class="user-image">
-	            <div class="thumbnail">
-	                <img ng-src="/api/img/download/{{msg.pictureid}}"></img>
-	            </div>
-	        </div>
-	    </div>
-    </a>
-    <br/>
-    <p class="margin-top-10 margin-bottom-10" ng-show="msg.type==='comment'">
-			{{msg.text}}
-	</p>
-	<p class="margin-top-10 margin-bottom-10 " ng-show="msg.type==='blog'">
-		<div class="media">
-			<a href="/app/blog/read/{{msg._id}}" class="pull-left"> <img ng-src="{{getFirstImageSrc(msg.text)}}" alt="" class="media-object" style="width:150px;"> </a>
-            <div class="media-body">
-                <h4 class="media-heading">{{msg.title}}</h4>
-                {{msg.text | stripHtml}}
-            </div>
-		</div>
-			
-	</p>
+<comment msg="msg" ng-if="msg.type === 'comment'"></comment>
+<notification msg="msg" ng-if="msg.type === 'notification'"></notification>
+<assignment msg="msg" ng-if="msg.type === 'assignment'"></assignment>
+<blog msg="msg" ng-if="msg.type === 'blog'"></blog>
 
-	<!-- <p ng-bind-html="msg.text" ng-show="msg.type==='blog'">
-	</p> -->
-
-</div>
-
-<div class="margin-top-10">
-	<slick settings="slickConfig" class="slider no-padding" ng-show="msg.files && msg.files.length > 0">
+<slick settings="slickConfig" class="slider no-padding" ng-show="msg.files && msg.files.length > 0">
 			<div ng-repeat="picture in msg.files" class="padding-10">
 		            <div class="user-image no-padding">
 		            		<a href="#" ng-click="showCarousal(msg, picture)">
-		                        <div class="thumbnail">
+		                        <div class="thumbnail  margin-0">
 		                            <img ng-src="/api/img/download/thumbnail/{{picture.fileid }}_thumb.{{picture.type==='pdf'?'png':picture.type}}">
 		                            <div class="caption">
 		                                {{picture.fileName}}
@@ -51,7 +17,28 @@
 	                </div>
 	                
 		    </div>
-	</slick>
+</slick>
+	
+<div class="widget-actions pull-left small">
+	<a href="javascript:void(0)" ng-click="like(msg._id)">Like</a>
+	<a href="javascript:void(0)" ng-click="showReplies=!showReplies">Reply</a>
+	<a href="javascript:void(0)">
+		<i class="icon md-favorite"></i>
+		<span ng-show='msg.likes.length > 0'>{{msg.likes.length}}</span>
+	</a>
+	<a href="javascript:void(0)">
+		<i class="icon md-comment"></i>
+		<span ng-show='msg.comments > 0'>{{msg.comments}}</span>
+	</a>
+</div>
+</div>
+
+<div class="col-md-12 margin-right-0 padding-right-0">
+	<!-- REPLIES -->
+	<post ng-show="showReplies" parentid="msg._id"></post>
+	<div class="padding-left-60 padding-top-30 padding-bottom-5 " style="border: 0 none;" ng-repeat="reply in replies" >
+			<message msg="reply"></message>
+	</div>
 </div>
 
 <script type="text/ng-template" id="myModalContent.html">

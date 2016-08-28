@@ -1,0 +1,20 @@
+{
+  "name": "jquery-slidePanel",
+  "version": "0.2.2",
+  "main": "dist/jquery-slidePanel.js",
+  "copyright": "amazingSurge",
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "libs",
+    "package.json",
+    "Gruntfile.js",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.8.3"
+  }
+}

@@ -4,7 +4,7 @@ define(['./userList'], function(userList){
 	
 	userList.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
-		$urlRouterProvider.otherwise("/app/users");
+		
 
 		$stateProvider.state('app', {
 	        url: "/app",
@@ -13,12 +13,14 @@ define(['./userList'], function(userList){
 	    }).state('app.users', {
 	        url: "/users",
 	        templateUrl: "assets/js/userList/userList.html",
+	        //templateUrl: "assets/js/test.html",
+	        //templateUrl: "assets/js/signup/signup.html",
 	        title: 'Users',
 	        controller: 'userListController',
 	        ncyBreadcrumb: {
 	            label: 'Users'
 	        }
-	    })
+	    });
 
 		$locationProvider.html5Mode(true);
 	});

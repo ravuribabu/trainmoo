@@ -1,0 +1,40 @@
+{
+  "name": "jquery-asScroll",
+  "title": "jQuery asScroll",
+  "description": "A jquery plugin that click on the button to jump to the specified location",
+  "version": "0.1.1",
+  "homepage": "https://github.com/amazingSurge/jquery-asScroll",
+   "author": {
+    "name": "amazingSurge",
+    "email": "amazingSurge@yahoo.com",
+    "url": "amazingSurge.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:amazingSurge/jquery-asScroll.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amazingSurge/jquery-asScroll/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "https://github.com/amazingSurge/jquery-asScroll/blob/master/LICENSE-GPL"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.11.0"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-jsbeautifier": "*",
+    "grunt-text-replace": "*",
+    "load-grunt-tasks": "*"
+  }
+}

@@ -10,11 +10,12 @@ define(['angular', '../class', 'moment', '../classFactory'], function(angular, c
 					    var m = date.getMonth();
 					    var y = date.getFullYear();
 						
-
+					    $scope.classSelected = true;
 						init();
 
 						function init() {
-						   
+
+
 						   initializeCalendarView();
 						   $scope.userid = $stateParams.userid;
 
@@ -24,6 +25,7 @@ define(['angular', '../class', 'moment', '../classFactory'], function(angular, c
 						   $rootScope.$on('CLAZZ_SELECT', function(e, clazz) {
 						   		$scope.clazz = clazz;
 						   		if (clazz._id) {
+						   			$scope.classSelected = false;
 						   			classFactory.getEvents(clazz._id)
 											.success(function(data){
 												console.log("EVENTS: " + data);
@@ -101,9 +103,13 @@ define(['angular', '../class', 'moment', '../classFactory'], function(angular, c
 					            size: 'md',
 					            backdrop: true,
 					            controller: function ($scope, $uibModalInstance) {
+
 					                $scope.$modalInstance = $uibModalInstance;
 					                $scope.action = action;
+					                
 					                $scope.event = event;
+					                // $scope.event.parent.eventDate.start = '12/21/2016';
+					                // $scope.event.parent.eventDate.end = '12/31/2016';
 					                $scope.cancel = function () {
 					                    $uibModalInstance.dismiss('cancel');
 					                    refreshCalendarEvents(event);
@@ -120,6 +126,8 @@ define(['angular', '../class', 'moment', '../classFactory'], function(angular, c
 									$scope.selectDay = function() {
 										$scope.event.parent.days = _.map( _.filter($scope.daysInWeek, {checked:true}), function(o) { return o.name.toLowerCase() } );
 									};
+
+
 					            }
 					        });
 					        modalInstance.result.then(function (selectedEvent, action) {
@@ -206,8 +214,8 @@ define(['angular', '../class', 'moment', '../classFactory'], function(angular, c
 
 				                	event.eventDate.start = new Date(event.eventDate.start);
 				                	event.eventDate.end = new Date(event.eventDate.end);
-									var startDate = moment(event.eventDate.start);
-									var endDate = moment(event.eventDate.end);
+									var startDate = moment(new Date(event.eventDate.start));
+									var endDate = moment(new Date(event.eventDate.end));
 									var noOfDays = endDate.diff(startDate, 'days') + 1;
 
 									var startTime = moment(event.eventTime.start);

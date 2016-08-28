@@ -1,13 +1,11 @@
-define(['angular', './user'], function(angular, user){
+define(['angular', './user', '../wall/wall'], function(angular, user){
 
 	'use strict';
 	
 	return user.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
-		$urlRouterProvider.otherwise("/app/users");
-
 		$stateProvider.state('app.edituser', {
-	        url: "/user/:id",
+	        url: "/user/:userid",
 	        templateUrl: "assets/js/user/userEdit.html",
 	        title: 'Users',
 	        ncyBreadcrumb: {
@@ -15,8 +13,8 @@ define(['angular', './user'], function(angular, user){
 	        }
 	        
 	    })
-	    .state('app.newuser', {
-	        url: "/user",
+	    .state('app.user', {
+	        url: "/user?credentialid",
 	        templateUrl: "assets/js/user/userEdit.html",
 	        title: 'Users',
 	        ncyBreadcrumb: {

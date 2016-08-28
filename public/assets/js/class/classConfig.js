@@ -1,10 +1,12 @@
 define(['angular', './class'], function(angular, classModule) {
-'use strict';
+	
+	'use strict';
+	
 	classModule.config(
 		function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 			$stateProvider.state('app.class', {
-			        url: "/classes/users/:userid",
+			        url: "/classes?programid",
 			        templateUrl: "assets/js/class/classes.html",
 			        title: 'Class',
 			        controller: "classController",

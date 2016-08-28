@@ -6,18 +6,28 @@ define(['angular', './class'], function(angular, classModule) {
 
 		
 		return {
-			getClasses: function(userid) {
-				 return $http.get('api/classes/' + userid);
+
+			getClasses: function(classid) {
+				if (classid) {
+				 return $http.get('api/classes/' + userid );
+				} else {
+					return this.getPrograms();
+				}
+			},
+			getPrograms: function() {
+				 return $http.get('api/programs');
 			},
 			getClass: function(classid) {
 				return $http.get('api/class/' + classid);
 			},
-			updateClass: function(classid, clazz) {
-				return $http.put('api/class/' + classid, clazz);
+			updateClass: function(clazz) {
+				return $http.put('api/class', clazz);
 			},
-			createClass: function(userid, clazz) {
-				return $http.post('api/classes/' + userid, clazz);
+			createClass: function(clazz) {
+				return $http.post('api/classes' , clazz);
 			},
+
+
 
 			getEvents:function(classid) {
 				return $http.get('api/class/' + classid + "/events");

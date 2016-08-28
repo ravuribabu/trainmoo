@@ -1,0 +1,26 @@
+{
+  "name": "jquery-scrollTo",
+  "main": "dist/jquery-scrollTo.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.11.0",
+    "easing": "git@github.com:amazingSurge/easing.css.git"
+  },
+  "homepage": "https://github.com/amazingSurge/jquery-asscroll",
+  "_release": "d78770bb8a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "d78770bb8af2817ebedd78fb8d4052f82aef1fea"
+  },
+  "_source": "https://github.com/amazingSurge/jquery-asscroll.git",
+  "_target": "*",
+  "_originalSource": "asscroll",
+  "_direct": true
+}

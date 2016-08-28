@@ -1,6 +1,6 @@
 define(['angular', 'SweetAlert'], function(angular) {
 	return {
-		AppForm : function(angular, handleSubmit, handleReset, handleInvalid) {
+		AppForm : function(angular, handleSubmit, handleInvalid, handleReset) {
 				return {
 					submit: function (form) {
 
@@ -22,7 +22,13 @@ define(['angular', 'SweetAlert'], function(angular) {
 			                }
 
 			                angular.element('.ng-invalid[name=' + firstError + ']').focus();
-			                swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");
+			                if (handleInvalid) {
+			                	handleInvalid();
+			                }
+		                	else {
+					            swal("The form cannot be submitted because it contains validation errors!", "Errors are marked with a red, dashed border!", "error");  		
+		                	}
+			                
 			                return;
 
 			            } else {

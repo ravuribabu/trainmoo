@@ -1,0 +1,16 @@
+{
+  "name": "jquery-asScrollbar",
+  "version": "0.3.1",
+  "main": "dist/jquery-asScrollbar.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=2.1.1",
+	  "jquery-wheel" : "git@github.com:brandonaaron/jquery-mousewheel.git"
+  }
+}

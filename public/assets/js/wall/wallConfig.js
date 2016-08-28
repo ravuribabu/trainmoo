@@ -5,7 +5,7 @@ define(['angular', './wall'], function(angular, user){
 	return user.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 		$stateProvider.state('app.wall', {
-	        url: "/wall/:id",
+	        url: "/wall/:userid",
 	        templateUrl: "assets/js/wall/wall.html",
 	        controller: 'wallController',
 	        title: 'Wall',

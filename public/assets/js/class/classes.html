@@ -1,32 +1,253 @@
+<style type="text/css">
 
-<div class="container-fluid container-fullw bg-white" ct-fullheight data-ct-fullheight-exclusion="header, footer">
-    <div class="row margin-top-10 margin-bottom-10">
-        <div class="col-md-2">
-            <button class="btn btn-primary btn-o btn-wide" ng-click="createNew()">
-                    <i class="ti-plus"></i> Create new class
-                </button>
-        </div>
-        <div class="col-md-10">
-            <h3 class="text-center">Classes by <b>{{user.name.firstname}} {{user.name.lastname}}</b> </h3>
-        </div>
-        
-    </div>
+    .site-main.row {
+        margin: 0
+    }
+    .header {
+        /*background: #C5E0DC*/
+    }
+    .primary-col,.secondary-col {
+      /*  background-color: #ddd;
+        padding:10px;*/
+    }
+    .navbar {
+        margin: 0 0 10px 0
+    }
+    .inner {
+      min-height:100%;
+      background:#fff;
+      /*border:1px solid red;*/
+    }
 
-    <div class="row border-top">
-            <div class="col-md-3 no-padding">
-                <class-summary-list></class-summary-list>
-            </div>
-            <div class="col-md-9 no-padding">
-                <div class="col panel panel-transparent no-radius no-padding">
-                    <uib-tabset class="tabbable no-padding">
-                            <uib-tab heading="Details">
-                                <div class-details></div>
-                            </uib-tab>
-                            <uib-tab heading="Schedule">
-                                <div class-schedule></div>
-                            </uib-tab>
-                    </uib-tabset>
+    /* needed to override jQuery */
+    @media (max-width:767px) { 
+        .primary-col,
+        .secondary-col {
+            height: auto!important
+        }
+        .site-main {
+            padding-bottom: 0px!important
+        }
+    }
+
+    /* larger viewport layout */
+    @media (min-width:768px) { 
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+        #page {
+            height: 100%;
+            height: auto !important;
+            min-height: 100%;
+        }
+        .site-main {
+            height: 100%;
+            padding:0 10px;
+        }
+        /*.secondary-col {
+            border-right: 10px solid #777
+        }*/
+    }
+
+    .secondary-col .form-control {
+      height: 56px;
+      width: 100%;
+      padding: 10px 60px 10px 30px;
+      border-color: rgba(0, 0, 0, .06);
+      border-width: 0 0 1px 0;
+      border-radius: 0;
+    }
+    .secondary-col .input-search-btn {
+      padding-right: 30px;
+      border-radius: 0;
+    }
+</style>
+
+<script type="text/javascript">
+    var fitWindow = function() {
+        var navbarht = $('.navbar').outerHeight();
+
+         function columnHeight() {
+                 var newHeight = $(window).height() - (navbarht) -20 + "px";
+                 $(".primary-col").css("height", newHeight);
+                 $(".secondary-col").css("height", newHeight);
+
+                 console.log(newHeight + ', ' + $(".inner").height() + ', ' +  $(".input-search").height());
+                 //$(".app-notebook-list").height(newHeight - 80)
+             }
+             columnHeight();
+         };
+
+     $(window).on('load resize', fitWindow);
+    fitWindow();
+
+</script>
+
+<div class="page-profile">
+    <div class="page">
+        <div class="page-header  padding-bottom-10">
+          <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">{{title}}</li>
+          </ol>
+          <h1 class="page-title">{{title}}</h1>
+          <div class="page-header-actions">
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" uib-tooltip="Create new {{classType}}" tooltip-placement="bottom" ng-click="createNew()">
+              <i class="icon wb-plus" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip"
+            data-original-title="Setting">
+              <i class="icon wb-settings" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="page-content container-fluid padding-left-5 padding-right-5">
+             <div class="row site-main">
+                <div class="col-sm-3 secondary-col padding-5">    
+                        <div class="input-search" style="z-index: 10;position: absolute;width:100%;">
+                          <button class="input-search-btn" type="submit">
+                            <i class="icon wb-search" aria-hidden="true"></i>
+                          </button>
+                          <form>
+                            <input class="form-control" type="text" placeholder="Search Keyword" ng-model="searchText">
+                          </form>
+                        </div>
+                        <div class="inner app-notebook-list padding-top-40" style="overflow-y: scroll;" >
+                            <div>
+                                <class-summary-list></class-summary-list>
+                            </div>
+                        </div>
                 </div>
-            </div>
+                <div class="col-sm-9 primary-col padding-5" >
+                    <div class="inner" style="height:300px;overflow-y:scroll;">
+                        <div   >
+                            <uib-tabset class="tabbable no-padding" >
+                                    <uib-tab heading="Details" >
+                                        <class-details></class-details>
+                                    </uib-tab>
+                                    <uib-tab heading="Schedule">
+                                        <div class-schedule ></div>
+                                    </uib-tab>
+
+                                    <uib-tab heading="Teachers">
+                                          <div class="panel" id="messge">
+                                              <div class="panel-heading">
+                                                <div class="panel-actions">
+                                                  <a class="text-action" href="javascript:void(0)"  uib-tooltip="Add teacher" tooltip-placement="bottom" ng-click="add('teacher')"><i class="icon wb-plus" aria-hidden="true"></i></a>
+                                                </div>
+                                                <h3 class="text-center">Teachers</h3>
+                                              </div>
+                                              <div class="panel-body">
+                                                <ul class="list-group list-group-full">
+                                                  <li class="list-group-item" ng-repeat="i in [1,2,3,4,5,6,7,8,9,11,12,13,14,15]">
+                                                    <div class="media">
+                                                      <div class="media-left">
+                                                        <span class="avatar avatar-online">
+                                                          <img src="assets/images/avatar-2.jpg" alt="">
+                                                          <i></i>
+                                                        </span>
+                                                      </div>
+                                                      <div class="media-body">
+                                                        <h5 class="list-group-item-heading" >
+                                                          <span class="label label-warning pull-right">Pending Registration</span>
+                                                          Santhi Ravuri
+                                                        </h5>
+                                                        <p class="list-group-item-text">Chemistry Teacher Bellandur, Bangalore&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="#" class="btn btn-primary btn-outline btn-round btn-sm">Message</a>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </li>
+                                                  
+                                                </ul>
+                                              </div>
+                                            </div>
+
+                                    </uib-tab>
+                                    <uib-tab heading="Students">
+                                          <div class="panel" id="messge">
+                                              <div class="panel-heading">
+                                                <div class="panel-actions">
+                                                  <a class="text-action" href="javascript:void(0)"><i class="icon wb-plus" aria-hidden="true"></i></a>
+                                                </div>
+                                                <h3 class="text-center">Students</h3>
+                                              </div>
+                                              <div class="panel-body">
+                                                <ul class="list-group list-group-full">
+                                                  <li class="list-group-item" ng-repeat="i in [1,2,3,4,5,6,7,8,9,11,12,13,14,15]">
+                                                    <div class="media">
+                                                      <div class="media-left">
+                                                        <span class="avatar avatar-online">
+                                                          <img src="assets/images/avatar-2.jpg" alt="">
+                                                          <i></i>
+                                                        </span>
+                                                      </div>
+                                                      <div class="media-body">
+                                                        <h5 class="list-group-item-heading" >
+                                                          <span class="label label-warning pull-right">Pending Registration</span>
+                                                          <span class="label label-info pull-right">Pending Payment</span>
+                                                          Kushi Ravuri
+                                                        </h5>
+                                                        <p class="list-group-item-text">LKG Bellandur, Bangalore&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="#" class="btn btn-primary btn-outline btn-round btn-sm">Message</a>
+                                                        <a href="#" class="btn btn-warning btn-outline btn-round btn-sm">Suspend</a>
+                                                        <a href="#" class="btn btn-danger btn-outline btn-round btn-sm">Terminate</a>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </li>
+                                                  
+                                                </ul>
+                                              </div>
+                                            </div>
+
+                                    </uib-tab>
+                                    <uib-tab heading="Admins">
+                                          <div class="panel" id="messge">
+                                              <div class="panel-heading">
+                                                <div class="panel-actions">
+                                                  <a class="text-action" href="javascript:void(0)"><i class="icon wb-plus" aria-hidden="true"></i></a>
+                                                </div>
+                                                <h3 class="text-center">Admins</h3>
+                                              </div>
+                                              <div class="panel-body">
+                                                <ul class="list-group list-group-full">
+                                                  <li class="list-group-item" ng-repeat="i in [1,2,3,4,5,6,7,8,9,11,12,13,14,15]">
+                                                    <div class="media">
+                                                      <div class="media-left">
+                                                        <span class="avatar avatar-online">
+                                                          <img src="assets/images/avatar-2.jpg" alt="">
+                                                          <i></i>
+                                                        </span>
+                                                      </div>
+                                                      <div class="media-body">
+                                                        <h5 class="list-group-item-heading" >
+                                                          <span class="label label-warning pull-right">Pending Registration</span>
+                                                          Santhi Ravuri
+                                                        </h5>
+                                                        <p class="list-group-item-text">Chemistry Teacher Bellandur, Bangalore&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="#" class="btn btn-primary btn-outline btn-round btn-sm">Message</a>
+                                                        </p>
+                                                      </div>
+                                                    </div>
+                                                  </li>
+                                                  
+                                                </ul>
+                                              </div>
+                                            </div>
+
+                                    </uib-tab>
+                            </uib-tabset>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
     </div>
 </div>
+
+
+

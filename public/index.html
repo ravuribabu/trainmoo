@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html ng-cloak>
 <head>
 
 	<title>Trainmoo</title>
     <base href="/">
+
+    <style type="text/css">
+			[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	        display: none !important;
+	      }
+
+	      .nav > li > a {
+	        display: block;
+	      }
+	</style>
 
 </head>
 
 <body>
 
 	<div ui-view class="lyt-4"></div>
-
     <script src="assets/bower_components/require.js" data-main='assets/main.js'></script>
-    
+     
 <body>
 </html> 

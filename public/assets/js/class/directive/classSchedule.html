@@ -1,35 +1,37 @@
 <div class="panel panel-white no-border">
                 <div class="panel-body">
                     <div id="demo">
-                        <div class="row">
+                        <div class="row padding-bottom-5">
                             <div class="col-md-10">
                                 <h4 class="text-center">{{ calendarTitle }} </h4>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-primary btn-o btn-wide" ng-click="addEvent()">
+                                <button class="btn btn-primary btn-outline btn-round" ng-click="addEvent()" ng-disabled="classSelected">
                                         <i class="ti-plus"></i> Add new event
                                     </button>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-xs-8">
                                 <div class="btn-group">
-                                    <button class="btn btn-primary" mwl-date-modifier date="calendarDate" decrement="calendarView">
+                                    <button class="btn btn-default" mwl-date-modifier date="calendarDate" decrement="calendarView">
                                         <i class="ti-angle-left"></i>
                                     </button>
-                                    <button class="btn btn-primary" mwl-date-modifier date="calendarDate" increment="calendarView">
+                                    <button class="btn btn-default" mwl-date-modifier date="calendarDate" increment="calendarView">
                                         <i class="ti-angle-right"></i>
                                     </button>
                                 </div>
-                                <button class="btn btn-primary btn-o" mwl-date-modifier date="calendarDate" set-to-today>
+                                <button class="btn btn-default btn-o" mwl-date-modifier date="calendarDate" set-to-today>
                                     Today
                                 </button>
                             </div>
                             <div class="col-xs-4 text-right">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
                                     <div class="btn-group">
-                                        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'year'"> Year </label>
-                                        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'month'"> Month </label>
-                                        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'week'"> Week </label>
-                                        <label class="btn btn-primary" ng-model="calendarView" uib-btn-radio="'day'"> Day </label>
+                                        <label class="btn btn-default" ng-model="calendarView" uib-btn-radio="'year'"> Year </label>
+                                        <label class="btn btn-default" ng-model="calendarView" uib-btn-radio="'month'"> Month </label>
+                                        <label class="btn btn-default" ng-model="calendarView" uib-btn-radio="'week'"> Week </label>
+                                        <label class="btn btn-default" ng-model="calendarView" uib-btn-radio="'day'"> Day </label>
                                     </div>
                                 </div>
                                 <div class="visible-xs visible-sm hidden-md hidden-lg">
@@ -73,19 +75,20 @@
                         <br>
 
                         <!-- start: EDIT EVENT TEMPLATE -->
-                        <script type="text/ng-template" id="calendarEvent.html">
-                            <div class="modal-body">
+                        <script type="text/ng-template" id="calendarEvent.html" >
+                            <div class="modal-body padding-top-80">
                                 <div class="form-group">
                                     <label>
                                         Event title
                                     </label>
-                                    <input type="text" placeholder="Enter title" class="form-control underline text-large" ng-model="event.parent.title">
+                                    <input type="text" placeholder="Enter title" class="form-control" ng-model="event.parent.title">
                                 </div>
                                 <div class="form-group">
                                     <label>
                                         Details
                                     </label>
-                                    <input type="text" placeholder="Enter Event Details" class="form-control underline" ng-model="event.parent.details">
+                                    <textarea rows="3" placeholder="Enter Event Details" class="form-control" ng-model="event.parent.details">
+                                    </textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="type" class="control-label">Event Type</label>
@@ -98,7 +101,7 @@
                                 </div>
 
                                 
-                                <fieldset>
+                                <fieldset class="padding-10 margin-bottom-10 margin-top-10">
                                     <legend>
                                         Event Time
                                     </legend>
@@ -120,116 +123,88 @@
 
                                  
                                 <div class="form-group">
-                                    <input type="checkbox" id="repeat" ng-model="event.parent.repeat">
-                                                                <label for="repeat">
-                                                                    Repeat?
-                                                                </label>
+                                    <div class="checkbox-custom checkbox-default">
+                                              <input type="checkbox" ng-model="event.parent.repeat">
+                                              <label for="message"><strong>Repeat?</strong></label>&nbsp;&nbsp;<i class="icon fa-repeat" aria-hidden="true"></i>
+                                    </div>
                                 </div>
 
-                                <div ng-show="event.parent.repeat">
-                                        <fieldset>
-                                            <legend>Recurrence Pattern</legend>
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-xs-12">
-                                                        <div class="radio clip-radio radio-primary radio-inline">
-                                                            <input type="radio" id="daily" name="recurCategory" value="daily" ng-model="event.parent.freqency">
-                                                            <label for="daily">
-                                                                 Daily
-                                                            </label>
-                                                        </div>
-                                                        <div class="radio clip-radio radio-primary radio-inline">
-                                                            <input type="radio" id="weekly" name="recurCategory" value="weekly" ng-model="event.parent.frequency">
-                                                            <label for="weekly">
-                                                                 Weekly
-                                                            </label>
-                                                        </div>
-                                                        <div class="radio clip-radio radio-primary radio-inline">
-                                                            <input type="radio" id="monthly" name="recurCategory" value="monthly" ng-model="event.parent.frequency">
-                                                            <label for="monthly">
-                                                                 Monthly
+                                
+                                <fieldset class="padding-bottom-0" ng-if="event.parent.repeat">
+                                    <legend>Recurrence Pattern</legend>
+                                    <div class="form-group padding-bottom-0">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="radio-custom radio-success inline small">
+                                                    <input type="radio" id="daily" name="recurCategory" value="daily" ng-model="event.parent.frequency">
+                                                    <label for="daily">
+                                                         Daily
+                                                    </label>
+                                                </div>
+                                                <div class="radio-custom radio-success inline small">
+                                                    <input type="radio" id="weekly" name="recurCategory" value="weekly" ng-model="event.parent.frequency">
+                                                    <label for="weekly">
+                                                         Weekly
+                                                    </label>
+                                                </div>
+                                                <div class="radio-custom radio-success inline small" >
+                                                    <input type="radio" id="monthly" name="recurCategory" value="monthly" ng-model="event.parent.frequency" disabled="true">
+                                                    <label for="monthly">
+                                                         Monthly
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 padding-bottom-0"  ng-if="event.parent.frequency === 'weekly'">
+                                                <div class="form-group padding-10">
+                                                    <label>
+                                                        On 
+                                                    </label>
+                                                    <div class="row padding-10">
+                                                        <div class="checkbox-custom checkbox-success inline" ng-repeat="day in daysInWeek">
+                                                            <input type="checkbox" id="{{day.name}}" ng-model="day.checked" ng-change="selectDay()">
+                                                            <label for="{{day.name}}">
+                                                                {{day.name}}
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xs-12">
-                                                        <div class="form-group">
-                                                            <label>
-                                                                On
-                                                            </label>
-                                                            <div class="row padding-20">
-                                                                <div class="checkbox clip-check check-primary checkbox-inline" ng-repeat="day in daysInWeek">
-                                                                    <input type="checkbox" id="{{day.name}}" ng-model="day.checked" ng-change="selectDay()">
-                                                                    <label for="{{day.name}}">
-                                                                        {{day.name}}
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                </div>
 
-                                                    </div>                                            
-                                            </div>
-                                        </fieldset>
+                                            </div>                                            
+                                    </div>
+                                </fieldset>
 
-                                         <fieldset>
-                                            <legend>
-                                                Range of occurrence
-                                            </legend>
+                                 <fieldset class="padding-10"  ng-if="event.parent.repeat">
+                                    <legend>
+                                        Range of occurrence 
+                                    </legend>
+                                    <div class="row">   
+                                        <div class="col-xs-6">
                                             <div class="form-group">
                                                 <label>
-                                                    Start 
+                                                    Start  
                                                 </label>
                                                 <span class="input-icon">
                                                     <input type="text" class="form-control underline" ng-click="startOpen = !startOpen" show-weeks="false" uib-datepicker-popup="fullDate" ng-model="event.parent.eventDate.start" is-open="startOpen" ng-init="startOpen = false" max-date="event.parent.eventDate.end" close-text="Close" />
                                                     <i class="ti-calendar"></i>
                                                 </span>
                                             </div>
+                                        </div>
+                                        <div class="col-xs-6">
                                             <div class="form-group">
                                                 <label>
-                                                    End
+                                                    End 
                                                 </label>
                                                 <span class="input-icon">
                                                     <input type="text" class="form-control underline" ng-click="endOpen = !endOpen" show-weeks="false" uib-datepicker-popup="fullDate" ng-model="event.parent.eventDate.end" is-open="endOpen" ng-init="endOpen = false" min-date="event.parent.eventDate.start" close-text="Close" />
                                                     <i class="ti-calendar"></i>
                                                 </span>
                                             </div>
-                                            <div class="form-group">
-                                                <p>
-                                                        <label>
-                                                            After
-                                                        </label>
-                                                        <input type="number" style="width:50px;" class="form-control text-large" ng-model="event.noofoccurences">
-                                                        <label>
-                                                            occurrences
-                                                        </label>
-                                                 </p>
-                                            </div>
-                                        </fieldset>
-
-                                        <!-- <div class="form-group">
-                                            <label>
-                                                Start
-                                            </label>
-                                            <span class="input-icon">
-                                                <input type="text" class="form-control underline" ng-click="startOpen = !startOpen" show-weeks="false" uib-datepicker-popup="fullDate" ng-model="event.startsAt" is-open="startOpen" ng-init="startOpen = false" max-date="event.endsAt" close-text="Close" />
-                                                <i class="ti-calendar"></i>
-                                            </span>
-                                            <uib-timepicker ng-model="event.startsAt" show-meridian="true" ng-show="!event.allDay"></uib-timepicker>
                                         </div>
-                                        <div class="form-group">
-                                            <label>
-                                                End
-                                            </label>
-                                            <span class="input-icon">
-                                                <input type="text" class="form-control underline" ng-click="endOpen = !endOpen" show-weeks="false" uib-datepicker-popup="fullDate" ng-model="event.endsAt" is-open="endOpen" ng-init="endOpen = false" min-date="event.startsAt" close-text="Close" />
-                                                <i class="ti-calendar"></i>
-                                            </span>
-                                            <uib-timepicker ng-model="event.endsAt" show-meridian="true" ng-show="!event.allDay"></uib-timepicker>
-                                        </div> -->
+                                    </div>
+                                    
+                                </fieldset>
 
 
-
-
-                                </div>
                             </div>
                     </div>
                     <div class="modal-footer">
