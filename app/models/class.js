@@ -3,18 +3,19 @@ var Schedule = require('./event').Event
 var User = require('./user').User
 var Schema = mongoose.Schema;
 
+//ClassSchema will be used for programs and classes
+//For Programs programid will be blank
 var ClassSchema = new Schema({
   
-  classid: { type: String, required: true, unique: true },
-
-  title: { type: String, required: true },
-  summary: { type: String, required: true },
+  //programid to which class belings to 
+  //If blank implies current entity represents a program
+  programid: {type: Schema.Types.ObjectId, ref: 'Class'} , 
+  name: { type: String, required: true },
   requirements: String,
   details: String,
   address: String, 
   zipcode: Number, 
   city: String,
-  teachers: [{type:Schema.Types.ObjectId, ref: 'User'}],
   categories: [String],
   trainingstyle: [{
                     type: String,
@@ -22,10 +23,10 @@ var ClassSchema = new Schema({
                   } ],
   status: String,
   capacity: Number,
-  registered: Number,
   cost: Number,
+  start: Date,
+  end: Date,
   noOfSessions: Number,
-  // events: [{type: Schema.Types.ObjectId, ref: 'Event'}}],
   created_at: Date,
   updated_at: Date
 });
@@ -36,9 +37,7 @@ ClassSchema.pre('save', function(next) {
   this.updated_at = currentDate;
   if (!this.created_at)
     this.created_at = currentDate;
-
   next();
-
 });
 
 var Class = mongoose.model('Class', ClassSchema);

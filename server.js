@@ -6,6 +6,13 @@ var bodyParser = require('body-parser');    // pull information from HTML POST (
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 var _ = require('lodash');
 var database = require('./config/database');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var session      = require('express-session');
+var cookieParser = require('cookie-parser')
+
+
+require('./config/passport')(passport); // pass passport for configuration
 
 
 // configuration =================
@@ -15,7 +22,14 @@ app.use(bodyParser.urlencoded({'extended':'true'}));            // parse applica
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
-
+app.use(cookieParser())
+app.use(session({ cookie: { maxAge: 60000 },
+                  secret: 'woot',
+                  resave: false,
+                  saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 var mongoose = require('mongoose');
 mongoose.connect(database.url);
@@ -33,22 +47,48 @@ db.once('open', function() {
   console.log('we are connected!');
 });
 
+
+
+
 var router = express.Router();
+
 router.use(function(req, res, next) {
 	console.log('Request received for: ' + req.url);
 	next();
 });
 
-router.get('/', function(req, res){
-	res.json({message: 'Congrats!! you are htting trainmoo api'});
-});
-
-app.use('/api', router);
 
 require('./app/controllers/controllers')(router);
+require('./app/routes')(router, passport);
+
+
+app.use('/api', function(req, res, next) {
+  console.log('REQUEST URL: ' + req.url);
+//  if (req.url === '/login/' || req.url === '/signup/' || req.isAuthenticated()) {
+      return next();
+//    }
+//    res.status(401).send('Unauthorized');
+}, router);
+
+
+app.use(function(req, res) {
+  // Use res.sendfile, as it streams instead of reading the file into memory.
+  res.sendfile(__dirname + '/public/index.html');
+});
+
+
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/app/login');
+}
+
 
 var server = app.listen(8080);
-server.timeout = 500000;
-console.log('server ' + server);
-
 console.log("App listening on port 8080");

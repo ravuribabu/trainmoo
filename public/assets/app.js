@@ -56,17 +56,17 @@ define(['angular',
 	});
 
 
-	app.directive('selectpicker', function ($window) {
-    return {
-	        restrict: 'A',
-	        link: function ($scope, $element, $attributes) {
-	            $element.selectpicker({
-					  style: 'btn-default',
-					  size: 10
-					});
-	        }
-	    };
-	});
+	// app.directive('selectpicker', function ($window) {
+ //    return {
+	//         restrict: 'A',
+	//         link: function ($scope, $element, $attributes) {
+	//             $element.selectpicker({
+	// 				  style: 'btn-default',
+	// 				  size: 10
+	// 				});
+	//         }
+	//     };
+	// });
 
 	app.directive('scrollable', function ($window) {
     return {
@@ -124,6 +124,22 @@ define(['angular',
 		};
 	});
 
+	app.directive('selectpicker', function(){
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			link: function($scope, $element, $attributes){
+
+				$element.selectpicker(
+						{
+						    style: "btn-select",
+						    iconBase: "icon",
+						    tickIcon: "wb-check"
+						  }
+					);
+			}
+		};
+	});
 
 	app.directive('datepicker', function(){
 		return {

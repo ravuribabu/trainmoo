@@ -3022,7 +3022,7 @@ fieldset[disabled] .btn-pure.focus {
 .nav-tabs-line > li.active > a:focus {
   color: #3f51b5;
   background-color: transparent;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid #3583CA;
 }
 .nav-tabs-line .open > a,
 .nav-tabs-line .open > a:hover,

@@ -1,15 +1,15 @@
 define(['angular', './class'], function(angular, classModule) {
 
 'use strict';
-	
+
 		classModule.factory('classFactory', function($http, SweetAlert){
 
-		
+
 		return {
 
-			getClasses: function(classid) {
-				if (classid) {
-				 return $http.get('api/classes/' + userid );
+			getClasses: function(programid) {
+				if (programid) {
+				 return $http.get('api/program/' + programid + '/classes');
 				} else {
 					return this.getPrograms();
 				}
@@ -45,6 +45,17 @@ define(['angular', './class'], function(angular, classModule) {
 				return $http.delete('api/event/' + eventid);
 			},
 
+
+
+			getUsers: function(classid){
+				return $http.get('api/class/' + classid + '/users');
+			},
+			addUser: function(classid, classUser){
+				return $http.post('api/class/' + classid + '/users', classUser);
+			},
+			updateUser: function(classid, classUser){
+				return $http.put('api/class/' + classid + '/users', classUser);
+			},
 		};
 
 	});

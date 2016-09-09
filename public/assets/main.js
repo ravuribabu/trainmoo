@@ -189,9 +189,7 @@ require.config({
 		"comp-tabs": {
 			deps:['jquery']
 		},
-		"comp-bootstrapselect": {
-			deps:['jquery', 'bootstrap-select']
-		},
+	
 		"breakpoints": {
 			deps:['jquery']
 		},
@@ -221,8 +219,8 @@ require.config({
 			deps : [ 'bootstrap', 'angular-ui-router', 'moment', 'ngAppear', 'countTo',
 			"animsition", "jquery-asScroll", "asScrollable", "asHoverScroll", "waves", "switchery", 
 			 "intro", "screenfull", "slidePanel", "core", "site", "menu", "menubar", "sidebar", "config-colors",
-	 		"config-tour", "comp-animsition", "comp-slidepanel", "comp-switchery", "comp-tabs", "comp-bootstrapselect", 
-	 		"breakpoints",	"jquery-placeholder", "modernizr", "ngalertify", "angular-material", "jquery-labelauty"]
+	 		"config-tour", "comp-animsition", "comp-slidepanel", "comp-switchery", "comp-tabs", 
+	 		"breakpoints",	"jquery-placeholder", "modernizr", "ngalertify", "angular-material", "jquery-labelauty", "bootstrap-select"]
 		},
 		'angular-ckeditor': {
 			deps: ['ckeditor']

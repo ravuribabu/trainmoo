@@ -75,7 +75,6 @@ module.exports = flow = function(temporaryFolder) {
         var identifier = req.param('flowIdentifier', "");
         var filename = req.param('flowFilename', "");
         
-        console.log('get upload: ', identifier);
         if (validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename) == 'valid') {
             var chunkFilename = getChunkFilename(chunkNumber, identifier);
             fs.exists(chunkFilename, function(exists) {
@@ -99,14 +98,12 @@ module.exports = flow = function(temporaryFolder) {
         var fields = req.body;
         var files = req.files;
 
-        console.log('Flow IDentifier: ' +fields['flowIdentifier']);
         var chunkNumber = fields['flowChunkNumber'];
         var chunkSize = fields['flowChunkSize'];
         var totalSize = fields['flowTotalSize'];
         var identifier = cleanIdentifier(fields['flowIdentifier']);
         var filename = fields['flowFilename'];
 
-        console.log('Post upload: ', identifier);
         if (!files[$.fileParameterName] || !files[$.fileParameterName].size) {
             callback('invalid_flow_request', null, null, null);
             return;
@@ -189,14 +186,12 @@ module.exports = flow = function(temporaryFolder) {
             filename = path.resolve($.temporaryFolder, filename);
             fs.exists(filename, function(exists) {
 
-                console.log()
                 if (exists) {
                     var sourceStream = fs.createReadStream(filename);
                     sourceStream.pipe(writableStream, {
                         end: true
                     });
                     sourceStream.on('end', function() {
-                        console.log('Thumbnail Stream End');
                     });
                 } else {
                     // When all the chunks have been piped, end the stream
@@ -220,10 +215,8 @@ module.exports = flow = function(temporaryFolder) {
 
         var pipeChunk = function(number) {
             var chunkFilename = getChunkFilename(number, identifier);
-            console.log('chunkFilename: ' + chunkFilename );
 
             fs.exists(chunkFilename, function(exists) {
-                console.log('chunkFilename: ' + chunkFilename + ' exists');
                 if (exists) {
                     // If the chunk with the current number exists,
                     // then create a ReadStream from the file
@@ -248,8 +241,6 @@ module.exports = flow = function(temporaryFolder) {
                         case 'application/pdf': 
                             var pdfImage = new PDFImage(actualFile);
                             pdfImage.convertPage(0).then(function (imagePath) {
-                              console.log(imagePath);
-                              //fs.existsSync("slide-0.png") // => true
                             }, function(err){
                                 console.log(err);
                             });
@@ -265,8 +256,6 @@ module.exports = flow = function(temporaryFolder) {
                                     console.log(err);
                                 }
                                 if (!err) {
-                                    console.log('Creating file: ' +actualFile + '_thumb');
-                                    debugger;
                                     pic.resize(250, jimp.AUTO).write(actualFile + '_thumb.' + ext, function(err){
                                         if (err) {
                                             console.log(err); 
@@ -296,10 +285,8 @@ module.exports = flow = function(temporaryFolder) {
 
             var chunkFilename = getChunkFilename(number, identifier);
 
-            //console.log('removing pipeChunkRm ', number, 'chunkFilename', chunkFilename);
             fs.exists(chunkFilename, function(exists) {
                 if (exists) {
-                    console.log('exist removing ', chunkFilename);
                     fs.unlink(chunkFilename, function(err) {
                         if (err && options.onError) options.onError(err);
                     });

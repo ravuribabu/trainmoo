@@ -1,0 +1,86 @@
+<style type="text/css">
+	.highlight:hover {
+	  background-color: #e3f2fd !important;
+	}
+</style>
+
+
+<div class="page-profile">
+	<div class="page">
+		<div class="page-header  padding-bottom-10">
+          <ol class="breadcrumb">
+            <li><a href="/app/wall">Home</a></li>
+          </ol>
+          <h1 class="page-title">Programs</h1>
+         </div>
+
+	    <div class="page-content container-fluid padding-left-5 padding-right-5 padding-top-20">
+	    	
+
+			<div class="row">
+				<div class="col-md-3" ng-repeat="program in programs">
+					<div class="panel highlight">
+						<div class="panel-heading">
+							<div class="panel-title"><h5>{{program.name}} <small>{{program.status}}</small></h5></div>
+							<div class="panel-actions">
+								<a class="text-action" href="javascript:void(0)"><i class="icon wb-edit" aria-hidden="true"></i></a>
+							</div>
+						</div> 
+							
+						<div class="panel-body">
+						    <p  style="line-height:175%"> 
+						    	{{program.details}}<br>						    	
+							    </p>
+							<p><i class="icon fa-location-arrow" aria-hidden="true"></i>&nbsp;&nbsp;{{program.location}}</p>
+							<p><i class="icon fa-tags" aria-hidden="true"></i>&nbsp;&nbsp;{{program.categories}}</p>
+							<p><i class="icon fa-bank" aria-hidden="true"></i>&nbsp;&nbsp;{{program.style}}</p>
+						    <div class="row">
+						    	<div class="col-xs-3 ">
+						    		<div class="counter">
+				                    <span class="counter-number">{{program.classes}}</span>
+				                    <div class="counter-label text-small"><a href="#">Classes</a></div>
+				                  </div>
+						    	</div>
+						    	<div class="col-xs-3 ">
+						    		<div class="counter">
+				                    <span class="counter-number">{{program.students}}</span>
+				                    <div class="counter-label text-small"><a href="#">students</a></div>
+				                  </div>
+						    	</div>
+						    	<div class="col-xs-3 ">
+						    		<div class="counter">
+				                    <span class="counter-number">{{program.events}}</span>
+				                    <div class="counter-label text-small"><a href="#">Events</a></div>
+				                  </div>
+						    	</div>
+						    	<div class="col-xs-3 ">
+						    		<div class="counter">
+				                    <span class="counter-number">{{program.posts}}</span>
+				                    <div class="counter-label text-small"><a href="#">Posts</a></div>
+				                  </div>
+						    	</div>
+						    </div>
+					    </div>						
+					</div>
+				</div>	
+			</div>
+	
+		</div>
+		<div class="site-action">
+		    <button type="button" class="site-action-toggle btn-raised btn btn-success btn-floating">
+		      <i class="front-icon wb-plus animation-scale-up" aria-hidden="true"></i>
+		      <i class="back-icon wb-close animation-scale-up" aria-hidden="true"></i>
+		    </button>
+		    <div class="site-action-buttons">
+		      <button type="button" data-action="trash" class="btn-raised btn btn-success btn-floating animation-slide-bottom">
+		        <i class="icon wb-trash" aria-hidden="true"></i>
+		      </button>
+		      <button type="button" data-action="folder" class="btn-raised btn btn-success btn-floating animation-slide-bottom">
+		        <i class="icon wb-folder" aria-hidden="true"></i>
+		      </button>
+		    </div>
+		  </div>
+
+
+	</div>
+</div>

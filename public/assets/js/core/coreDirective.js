@@ -171,4 +171,54 @@ function ($window, $rootScope, $timeout) {
     };
 }]);
 
+
+
+	core.directive('responsiveText', function(){
+		return {
+				restict : 'EA',
+				scope: {
+					text: '=text'
+				},
+				templateUrl: 'assets/js/core/directive/responsiveText.html',
+				controller: 'responsiveTextController'
+		};
+	});
+
+
+	core.controller('responsiveTextController', 
+
+		function($scope, $http, $window, userFactory, $state, $timeout, SweetAlert, flowFactory, $stateParams){
+
+			$scope.originalText = $scope.text
+			var minimized = false; 
+
+			$scope.showMoreLess = function(){
+				if (minimized) {
+					$scope.text = $scope.originalText;
+					minimized = false;
+					$scope.showTag = " Show Less";
+				} else {
+					$scope.text = $scope.originalText.substring(0, 50);
+					minimized = true;
+					$scope.showTag = " ...Show More"
+				}
+			}
+			
+			
+			init();
+			function init() {
+				if ($scope.originalText && $scope.originalText.length > 50) {
+					$scope.text = $scope.originalText.substring(0, 50);
+					minimized = true;
+					$scope.showTag = "..Show More"
+				} 
+			}
+			
+	    });
+
+
+
+
+
+
 });

@@ -18,7 +18,7 @@ module.exports = function(router) {
       if (status === 'done') {
         process.nextTick(function() { flow.createThumbnail(req); } );
       }
-      console.log('POST', status, original_filename, identifier);
+      //console.log('POST', status, original_filename, identifier);
       if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
         res.header("Access-Control-Allow-Origin", "*");
       }
@@ -27,7 +27,7 @@ module.exports = function(router) {
     });
   });
   router.options('/img/upload', function(req, res){
-    console.log('OPTIONS');
+    //console.log('OPTIONS');
     if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
       res.header("Access-Control-Allow-Origin", "*");
     }
@@ -37,7 +37,7 @@ module.exports = function(router) {
   // Handle status checks on chunks through Flow.js
   router.get('/img/upload', function(req, res) {
     flow.get(req, function(status, filename, original_filename, identifier) {
-      console.log('GET', status);
+      //console.log('GET', status);
       if (ACCESS_CONTROLL_ALLOW_ORIGIN) {
         res.header("Access-Control-Allow-Origin", "*");
       }
@@ -53,12 +53,12 @@ module.exports = function(router) {
   });
 
   router.get('/img/download/:identifier', function(req, res) {
-    console.log('DOWNLOADING Image' + req.params.identifier);
+    //console.log('DOWNLOADING Image' + req.params.identifier);
     flow.write(req.params.identifier, res);
   });
 
   router.get('/img/download/thumbnail/:identifier', function(req, res) {
-    console.log('DOWNLOADING Image' + req.params.identifier);
+    //console.log('DOWNLOADING Image' + req.params.identifier);
     flow.writeThumbnail(req.params.identifier, res);
   });
 

@@ -1,0 +1,28 @@
+<div class="panel" id="projects">
+        <div class="panel-heading">
+          <h3 class="panel-title"><a href="app/classes">Classes</a></h3>
+          <div class="panel-actions">
+               <a class="text-action" href="javascript:void(0)"><i class="icon wb-edit" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <td>Classes</td>
+                <td>Trainer</td>
+                <td>Status</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="clazz in classes">
+                <td>{{clazz.title}}</td>
+                <td><i class="icon wb-users"></i>{{clazz.trainers()}}</td>
+                <td>{{clazz.status}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>

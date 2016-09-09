@@ -1,13 +1,11 @@
 define([
-	'./classConfig',
-	'./classController',
+	'./class.config',
+	'./classListController',
 	'./classFactory',
-	'./directive/classSummaryList',
-	'./directive/classDetails',
-	'./directive/classSchedule',
-	'./directive/classScheduleController',
-	'./directive/classesCard',
-	'./directive/classUserController',
+	'./details/classController',
+	'./events/eventsController',
+	'./users/classUsersController',
+	'./users/classUserController'
 	], function(){
 	'use strict';
 });

@@ -2184,7 +2184,7 @@ ul.sub-menu li ul.sub-menu li ul.sub-menu li a {
     height: auto;
     bottom: auto;
     width: 260px;
-    z-index: 1050;
+    z-index: 2050;
     display: none;
   }
   .app-sidebar-closed ul.sub-menu > li a {

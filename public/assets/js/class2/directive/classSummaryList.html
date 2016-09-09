@@ -1,0 +1,12 @@
+<ul class="list-group">
+    <li class="list-group-item" ng-repeat="clazz in classes | filter: searchText" ng-click="selectClazz(clazz.classid)" ng-dblclick="selectProgram(clazz.classid)" ng-class="{'active' : clazz.classid == selected}">
+      <h4 class="list-group-item-heading">{{clazz.title}}<div ng-show="!clazz._id" class="pull-right"><small class="label label-warning">New</small></div>  </h4>
+
+      <p class="list-group-item-text">{{clazz.summary}}</p>
+      <div class="info">
+        
+        <span class="category"><i class="icon wb-users"></i>{{clazz.trainers()}}&nbsp;&nbsp;&nbsp;<i class="icon wb-pie-chart"></i>{{clazz.registered}}/{{clazz.capacity}}</span>
+        <span class="time">{{clazz.status}}</span> <a href="#" ng-click="console.log('Click ME')">CLICK</a>
+      </div>
+    </li>
+</ul>

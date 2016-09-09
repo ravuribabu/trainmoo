@@ -1,5 +1,22 @@
 var User = require('../models/user').User;
+var UserCredential = require('../models/userCredential').UserCredential;
+
 module.exports = function(router) {
+
+	router.route('/user')
+			.get(function(req, res){
+				console.log('Requesting for user' + req.user.user);
+				User.findById(req.user.user, function(err, user){
+					if (err) {
+						console.log(err);
+						res.send(err);
+					}
+					else {
+						user.credential = req.user;
+						res.send(user);
+					}
+				})
+			})
 	router.route('/users')
 			.post(function(req, res){
 
@@ -13,14 +30,32 @@ module.exports = function(router) {
 						res.status(500).send(err);
 					}
 					else { 
-						res.send({message: 'User Created Successfully'}); 
+						console.log('CREDENTIAL ID: ' +userJson.credential._id + ' USERID:  ' +  user._id);
+
+						UserCredential.findById(userJson.credential._id, function(err, credential){
+					  						if (err) {
+					  							res.send(err);
+					  							return;
+					  						}
+					  						credential.name = userJson.credential.name;
+					  						credential.userType = userJson.credential.userType;
+					  						credential.user = user._id;
+					  						credential.save(function(err){
+						  						if (err) res.send(err);
+						  						else 
+						  							res.send(user._id);
+						  					});
+					  					});
+
 					}
 				}); 
 			})
 			
 			.get(function(req, res){
 				console.log("GET USERS");
-				User.find(function(err, users){
+				User.find({})
+					.populate('credential')
+					.exec(function(err, users){
 					if (err) {
 						res.send(err);
 					}
@@ -30,9 +65,10 @@ module.exports = function(router) {
 				});
 			});
 
-	router.route('/users/:user_id')
+	router.route('/credential/:crendetialid')
 		  .get(function(req, res) {
-		  	User.findById(req.params.user_id, function(err, user){
+		  	UserCredential
+		  	.findById(req.params.crendetialid, function(err, user){
 		  		if (err) {
 		  			res.send(err);
 		  		} else {
@@ -40,8 +76,31 @@ module.exports = function(router) {
 		  		}
 		  	});
 
+		  });
+
+	router.route('/users/:user_id')
+		  .get(function(req, res) {
+
+		  	console.log('RECEIVED Request for userid ' + req.params.user_id);
+
+		  	User
+			  	.findById(req.params.user_id)
+			  	.populate('credential')
+			  	.exec(function(err, user){
+			  		if (err) {
+			  			console.log('ERROR: ' + err + ' USER' + user);
+			  			res.send(err);
+			  		} else {
+			  			console.log('SUCCESS: ' + err + ' USER' + user);
+			  			res.json(user);
+			  		}
+			  	});
+
 		  })
-		  .put(function(req, res) {
+		  .put(function(
+
+
+		  	req, res) {
 			User.findById(req.params.user_id, function(err, user){
 					  		if (err) {
 					  			res.send(err);
@@ -64,13 +123,32 @@ module.exports = function(router) {
 					  			user.certifications = newUser.certifications;
 					  			user.summary = newUser.summary;
 					  			user.address = newUser.address;
+					  			user.picture = newUser.picture;
 
 					  			user.save(function(err){
 					  				if (err){
 					  					res.send(err);
 					  				} else {
-					  					res.send("User updated sucessfully")
+
+					  					console.log('UPDATING CREDENTIAL: ' + user.credential._id);
+
+					  					UserCredential.findById(newUser.credential._id, function(err, credential){
+					  						if (err) {
+					  							res.send(err);
+					  							return;
+					  						}
+					  						credential.name = newUser.credential.name;
+					  						credential.userType = newUser.credential.userType;
+
+					  						credential.save(function(err){
+						  						if (err) res.send(err);
+						  						else 
+						  							res.send("User updated sucessfully");
+						  					});
+					  					});
+					  					
 					  				}
+					  					
 					  			});
 					  		}
 					  	});

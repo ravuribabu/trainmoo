@@ -5,20 +5,17 @@ var PostSchema = new Schema({
 	discussion_id: {type:Schema.Types.ObjectId, ref: 'Post'},
 
 	title: String,
-	type: { type: String, enum: ['comment','blog']},
+	type: { type: String, enum: ['comment','blog', 'notification', 'assignment', 'newsletter']},
 	author : {
 		id: {type:Schema.Types.ObjectId, ref: 'User'},
 		name: String
 	},
-	class : {
-		id :{type:Schema.Types.ObjectId, ref: 'User'},
-		name: String
-	},
+	classes : [String],
 	likes: [ {
 		id: {type:Schema.Types.ObjectId, ref: 'User'},
 		name: String
 		}],
-	comments: Number,
+	noOfReplies: Number,
 	parentid: {type:Schema.Types.ObjectId, ref: 'Post'},
 	files: [ {
 		fileid: {type:String}, 
@@ -28,6 +25,7 @@ var PostSchema = new Schema({
 		thumbnailid: {type:String}
 	}
 	],
+	dueby : {type:Date},
 	text: String, 
 	slug: String,
 	full_slug: String,
